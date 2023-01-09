@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/styles.css">
+    <title>Simple Game</title>
+</head>
+<body>
+
+    <div id="startScreen">
+        <img src="https://fontmeme.com/permalink/230109/2ae511d2efefb833b7210b9bb8e21983.png" alt="" srcset="">
+        <h1 id="textStart" style="opacity: 1">Press Start to Continue</h1>
+    </div>
+
+    <div id="chooseCharacter">
+        <div id="characterContainer">
+            <div class="characterBoxSpace">
+                <img src="../assets/Characters/Captain America.png" alt="Captain America">
+            </div>
+            <div class="characterBoxSpace">
+                <img src="../assets/Characters/Loki.png" alt="Loki">
+            </div>
+            <div class="characterBoxSpace">
+                <img src="../assets/Characters/Doctor Strange.png" alt="Doctor Strange">
+            </div>
+            <div class="characterBoxSpace">
+                <img src="../assets/Characters/Spider-Man.png" alt="Spider Man">
+            </div>
+            <div class="characterBoxSpace">
+                <img src="../assets/Characters/Flash.png" alt="Flash">
+            </div>
+            <div class="characterBoxSpace">
+                <img src="../assets/Characters/Iron-Man.png" alt="Iron-Man">
+            </div>
+        </div>
+    </div>
+    <div id="main">
+        <div id="characterDiv">
+            <div id="characterHitBox"></div>
+            <img id="characterImg" src="../assets/Captain America.png" alt="Character">
+        </div>
+        <div id="alienDiv">
+            <div id="alienHitBox"></div>
+            <img id="alienImg" src="../assets/Alien.png" alt="Alien">
+        </div>
+        <div id="scoreDiv">
+            <h3 id="scoreH3">Score 0</h3>
+        </div>
+       <div id="gameOver">
+        <h1 id="gameOverTitle">Game Over</h1>
+        <h2 id="infoGameOver"></h2>
+       </div>
+
+       <!-- <div class="cloudsDiv">
+        <div class="hitBoxCloud"></div>
+        <img class="cloudImg" src="../assets/Cloud.png" alt="Cloud">
+       </div> -->
+
+    </div>
+    </div>
+    
+    <script src="../js/index.js"></script>
+    <script src="../js/Character.js"></script>
+    <script src="../js/Score.js"></script> 
+    <script src="../js/AlienBehavior.js"></script>
+   <script src="../js/Collitions.js"></script>
+   <script src="../js/Clouds and Stuff.js"></script>
+
+
+</body>
+</html>
