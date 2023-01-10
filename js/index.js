@@ -1,13 +1,12 @@
 
 //HTML Element Selector
 
-const characterDiv = document.getElementById("characterDiv");
+const characterDiv = document.getElementsByClassName("characterDiv");
 const characterImg = document.getElementById("characterImg");
 const body = document.getElementsByTagName("body")[0];
 const main = getComputedStyle(document.getElementById("main"));
 const bodyDimension = document.getElementsByTagName("body")[0];
 const hitBoxCharacterStyle = document.getElementById("characterHitBox");
-
 
 let timerJump = null,
     positionJump = 0,
@@ -142,3 +141,10 @@ timerStartContinue = setInterval(() => {
         startText.style.opacity = "0.4";
 
 }, 400);
+
+const pointerImg = document.getElementById("selectedIcon");
+document.addEventListener('mousemove', (event) => {
+    pointerImg.style.left = event.pageX + "px";
+    pointerImg.style.top = event.pageY + "px";
+
+});
