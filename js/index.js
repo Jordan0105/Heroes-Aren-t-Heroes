@@ -16,9 +16,10 @@ let timerJump = null,
     cloudsGenerated = 0,
     cloudInterval1,
     existCloud = false,
-    timerStartContinue;
-
-
+    timerStartContinue,
+    timerChooseCharacter,
+    opacityAuraSetinterval,
+    opacity = 0;
 
 //Functions
 
@@ -125,7 +126,7 @@ const newCharacter = new Character(characterImg);
 const newCloud = new Cloud();
 
 
-//Event Listeners
+//* Event Listeners
 
 
 window.addEventListener("keydown", () => {
@@ -133,18 +134,118 @@ window.addEventListener("keydown", () => {
 });
 
 timerStartContinue = setInterval(() => {
+
     const startText = document.getElementById("textStart");
+
     if (startText.style.opacity == "0.4")
         startText.style.opacity = "1";
 
     else
         startText.style.opacity = "0.4";
 
-}, 400);
+}, 100);
 
-const pointerImg = document.getElementById("selectedIcon");
-document.addEventListener('mousemove', (event) => {
-    pointerImg.style.left = event.pageX + "px";
-    pointerImg.style.top = event.pageY + "px";
 
-});
+//* Pointer Image Mouse
+
+// const pointerImg = document.getElementById("selectedIcon");
+// // pointerImg.style.visibility = "hidden";
+// document.addEventListener('mousemove', (event) => {
+
+//     //! The mouse pointer doesn't work on different sizes
+
+//     pointerImg.style.left = (event.clientX - 370) + "px";
+//     pointerImg.style.top = (event.clientY - 200) + "px";
+
+// });
+
+
+// Move cursor onto the image
+
+for (let i = 0; i < document.getElementsByClassName("characterBoxSpace").length; i++) {
+
+    document.getElementsByClassName("characterBoxSpace")[i].addEventListener("mouseenter", (event) => {
+        // console.log(document.getElementsByClassName("characterBoxSpaceHidden")[i].id);
+        const aura = document.getElementById("aura");
+        clearInterval(opacityAuraSetinterval);
+        opacity = 0;
+        aura.style.opacity = opacity;
+
+        opacityAuraSetinterval = setInterval(() => {
+
+
+            aura.style.opacity = opacity;
+
+            if (aura.style.opacity <= 0.6) {
+                opacity = opacity + 0.05;
+                aura.style.opacity = opacity;
+            }
+            else {
+                clearInterval(opacityAuraSetinterval);
+                opacity = 0;
+
+            }
+
+
+
+        }, 100);
+
+        switch (i) {
+            case 0:
+                aura.style.top = "-12px";
+                aura.style.left = "56px";
+                break;
+
+            case 1:
+                aura.style.top = "-12px";
+                aura.style.left = "488px";
+
+                break;
+
+            case 2:
+                aura.style.top = "-12px";
+                aura.style.left = "918px";
+                break;
+            case 3:
+                aura.style.top = "255px";
+                aura.style.left = "56px";
+                break;
+            case 4:
+                aura.style.top = "255px";
+                aura.style.left = "494px";
+                break;
+            case 5:
+                aura.style.top = "255px";
+                aura.style.left = "922px";
+                break;
+
+        }
+    });
+
+    document.getElementsByClassName("characterBoxSpace")[i].addEventListener("mouseleave", event => {
+
+        const aura = document.getElementById("aura");
+        clearInterval(opacityAuraSetinterval);
+        aura.style.opacity = 0;
+
+    })
+
+    document.getElementsByClassName("characterBoxSpace")[i].addEventListener("mouseleave", event => {
+
+        const aura = document.getElementById("aura");
+        clearInterval(opacityAuraSetinterval);
+        aura.style.opacity = 0;
+
+    })
+
+    document.getElementsByClassName("characterBoxSpace")[i].addEventListener("click", event => {
+
+        switch (i) {
+            case 1:
+
+                break;
+        }
+
+    })
+
+}

@@ -14,7 +14,7 @@ body {
   justify-content: center;
   background-color: black;
   overflow: hidden;
-  cursor: none;
+  cursor: default;
 }
 
 #main {
@@ -61,6 +61,16 @@ body {
   border: 5px solid whitesmoke;
   position: absolute;
   overflow: hidden;
+  cursor: url("/assets/Icons/Selected_Icon.png"), auto;
+}
+#chooseCharacter #aura {
+  position: absolute;
+  opacity: 0.6;
+  top: -12px;
+  left: 56px;
+  width: 305px;
+  height: 245px;
+  z-index: -1;
 }
 
 #characterContainer {
@@ -103,7 +113,7 @@ body {
   top: 0px;
   left: 345px;
   rotate: 338deg;
-  z-index: 1;
+  z-index: 0;
   position: absolute;
 }
 
