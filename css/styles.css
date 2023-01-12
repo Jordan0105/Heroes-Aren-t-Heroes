@@ -2,6 +2,7 @@
   font-family: gameFont;
   src: url("/assets/Fonts/gameFont.otf") format("opentype");
 }
+
 body {
   width: 100vw;
   height: 100vh;
@@ -63,6 +64,7 @@ body {
   cursor: url("/assets/Icons/Selected_Icon.png"), auto;
   display: none;
 }
+
 #chooseCharacter #aura {
   position: absolute;
   opacity: 0.6;
@@ -98,6 +100,7 @@ body {
   width: 425.66px;
   height: 263.66px;
 }
+
 .characterBoxSpace img {
   width: 160px;
   height: 185px;

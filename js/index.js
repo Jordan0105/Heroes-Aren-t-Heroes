@@ -18,11 +18,15 @@ let timerJump = null,
     cloudsGenerated = 0,
     cloudInterval1,
     existCloud = false,
+    startMoving,
     timerStartContinue,
+    createCloudsInterval,
     opacityAuraSetinterval,
     opacity = 0;
 
-//Functions
+//* Functions
+
+//Clouds Function
 
 function randomTopCloud() {
 
@@ -32,53 +36,220 @@ function randomTopCloud() {
     return heightPx[height];
 }
 
-//Classes
+const moveClouds = () => {
+
+    // if (document.getElementById("cloudsDiv").style.left <= "1300") {
+
+    //     document.getElementById("cloudsDiv").style.visibility = "visible";
+    // }
 
 
+    if (document.getElementById("cloudsDiv").style.left == "-230px") {
+        //Delete elements
 
-class Cloud {
-    constructor() {
+        clearInterval(cloudInterval1);
+        document.getElementById("cloudsDiv").remove();
+        cloudPosition = 1300;
+        existCloud = false;
 
     }
+    else {
+        existCloud = true;
+        cloudPosition -= 3;//1
+
+        document.getElementById("cloudsDiv").style.left = cloudPosition + "px";
+    }
+
 }
-// const newCloud = new Cloud();
 
-//! Functions 
+//Alien Functions
 
-const closeHomeScreen = () => {
+const alien_Start_Moving_Function = () => {
+
+    const alienDiv = document.getElementById("alienDiv");
+    const alienImg = document.getElementById("alienImg");
+    let alienSpeed = 1;
+    let position = 1320;
+    startMoving = setInterval(alienMovementRight, 1);
+
+    function getSpeed(score) {
+        switch (score) {
+            case 100:
+                alienSpeed = 1.5;
+                break;
+
+            case 200:
+                alienSpeed = 2.5;
+                break;
+
+            case 300:
+                alienSpeed = 3.5;
+                jumpSpeed = 7;
+                break;
+
+            case 400:
+                alienSpeed = 4.5;
+                jumpSpeed = 6;
+                break;
+            case 500:
+                alienSpeed = 6;
+                jumpSpeed = 5;
+                break;
+
+            case 600:
+                jumpSpeed = 4;
+
+            case 1000:
+                alienSpeed = 9;
+                jumpSpeed = 3;
+                break;
+        }
+    }
+
+    function alienMovementRight() {
+        alienImg.style.transform = "scaleX(1)";
+
+        // getSpeed(score);
+
+        if (position <= 0) {
+            clearInterval(startMoving);
+            startMoving = setInterval(alienMovementLeft, 1);
+        }
+        else {
+            position -= alienSpeed;
+            alienDiv.style.left = position + "px";
+        }
+    }
+
+    function alienMovementLeft() {
+
+        // getSpeed(score);
+        alienImg.style.transform = "scaleX(-1)";
+        if (position >= 1200) {
+            clearInterval(startMoving);
+            startMoving = setInterval(alienMovementRight, 1);
+        }
+        else {
+            position += alienSpeed;
+            alienDiv.style.left = position + "px";
+        }
+    }
+
+
+}
+
+//Collition Functions
+
+const collitionFunction = () => {
+
+
+    let checkPosition = setInterval(watchMyElement, 1);
+    let hitBoxAlien, hitBoxCharacter, currentHitPosition,
+        currentHitPositionAlien, hitBoxCloud, currentHitPositionCloud;
+    let cloudDiv;
+    let cloudCollideY;
+
+    function watchMyElement() {
+
+        hitBoxAlien = window.getComputedStyle(alienHitBox);
+        hitBoxCharacter = window.getComputedStyle(characterHitBox);
+
+
+        try {
+            hitBoxCloud = window.getComputedStyle(cloudHitBox);
+            cloudDiv = window.getComputedStyle(cloudsDiv);
+        }
+        //314.509px
+        catch (e) {
+            console.log(`hitBoxAlien ${hitBoxAlien} hitBoxCharacter ${hitBoxCharacter}`)
+
+            return;
+        }
+
+
+        currentHitPosition = parseFloat(hitBoxCharacter.left) + parseFloat(window.getComputedStyle(characterDiv).left);
+        currentHitPositionAlien = parseFloat(hitBoxAlien.left) + parseFloat(window.getComputedStyle(alienDiv).left);
+        currentHitPositionCloud = parseFloat(hitBoxCloud.left) + parseFloat(window.getComputedStyle(cloudsDiv).left);
+
+
+
+        let didCollideAlien = (currentHitPosition + parseFloat(hitBoxCharacter.width)) >= currentHitPositionAlien && currentHitPosition <= (currentHitPositionAlien + parseFloat(hitBoxAlien.width));
+        let didCollideCloud = (currentHitPosition + parseFloat(hitBoxCharacter.width)) >= currentHitPositionCloud && currentHitPosition <= (currentHitPositionCloud + parseFloat(hitBoxCloud.width));
+        cloudCollideY = !((parseFloat(window.getComputedStyle(characterDiv).top)) >= (parseFloat(hitBoxCloud.height) + (parseFloat(cloudDiv.top) + parseFloat(hitBoxCloud.top))));
+
+        console.log(`awas${didCollideAlien} ${parseFloat(window.getComputedStyle(characterDiv).top)}`)
+
+        if (didCollideAlien && parseFloat(window.getComputedStyle(characterDiv).top) >= 325) {
+
+            clearInterval(checkPosition);
+            clearInterval(startMoving);
+            clearInterval(scoreTimer);
+            clearInterval(createCloudsInterval);
+            clearInterval(cloudInterval1);
+
+            // showScore();
+
+        }
+        else if (didCollideCloud && cloudCollideY) {
+
+
+            // console.log("From top to up hit box " + (parseFloat(cloudDiv.top) + parseFloat(hitBoxCloud.top)));
+            // console.log("From top to bottom hitbox: " + (parseFloat(hitBoxCloud.height) + (parseFloat(cloudDiv.top) + parseFloat(hitBoxCloud.top))));
+
+            // console.log("Froom top to up hitbox character: " + parseFloat(window.getComputedStyle(characterDiv).top));
+            // console.log("From top top to bottom hitbox: " + (parseFloat(window.getComputedStyle(characterDiv).top) + parseFloat(window.getComputedStyle(characterDiv).height)));
+
+            clearInterval(startMoving);
+            clearInterval(scoreTimer);
+            clearInterval(createCloudsInterval);
+            clearInterval(cloudInterval1);
+            // showScore();
+        }
+
+
+
+
+    }
+
+}
+
+
+const close_Home_Screen = () => {
     clearInterval(timerStartContinue);
     startScreen.style.display = "none";
 }
 
-const loadGameplayScreenEvent = () => {
+const load_Gameplay_Screen_Event = () => {
 
     //* Delete the previous screen
 
-    closeChooseCharacterScreen();
+    close_Choose_Character_Screen();
 
     //* Load the Gameplay Screen
 
-    loadGameplayScreen();
+    load_Gameplay_Screen();
 
-    window.removeEventListener("keydown", loadGameplayScreenEvent);
+    window.removeEventListener("keydown", load_Gameplay_Screen_Event);
 
 }
 
-const loadChooseCharacterScreenEvent = () => {
+const load_Choose_Character_Screen_Event = () => {
 
     //Load the select character screen
-    closeHomeScreen();
-    loadChooseCharacterScreen();
-    window.removeEventListener("keydown", loadChooseCharacterScreenEvent);
+    close_Home_Screen();
+    load_Choose_Character_Screen();
+    window.removeEventListener("keydown", load_Choose_Character_Screen_Event);
 }
 
 //TODO: Create the loadHomeScreen Function
 
-const closeChooseCharacterScreen = () => {
+const close_Choose_Character_Screen = () => {
+
     document.getElementById("chooseCharacter").style.display = "none";
+
 }
 
-const loadChooseCharacterScreen = () => {
+const load_Choose_Character_Screen = () => {
 
     document.getElementById("chooseCharacter").style.display = "flex";
 
@@ -195,26 +366,30 @@ const loadChooseCharacterScreen = () => {
             }
             document.getElementById("chooseCharacterText").innerHTML = "Press Any Key To Continue";
 
-            window.addEventListener("keydown", loadGameplayScreenEvent);
+            window.addEventListener("keydown", load_Gameplay_Screen_Event);
 
         });
 
     }
 }
 
-const closeGameplayScreen = () => {
+const close_Gameplay_Screen = () => {
 
 }
 
-const loadGameplayScreen = () => {
+const load_Gameplay_Screen = () => {
 
     document.getElementById("main").style.display = "block";
+    document.getElementById("main").style.cursor = "none";
+
     document.getElementById("characterImg").src = characterImgSrc;
-    // window.removeEventListener("keydown",);
-    console.log("Loaded");
+    alien_Start_Moving_Function();
+    collitionFunction();
+    createCloudsInterval = setInterval(createCloudFunction, 1000);
+
     moveFunction = (e) => {
-        console.log("Pressed key");
-        if (e.code == "Space") { //or keyIsFalse cause keyup
+
+        if (e.code == "Space") {
 
             if (timerJump === null) {
                 positionJump = 400;
@@ -255,8 +430,8 @@ const loadGameplayScreen = () => {
 
             hitBoxCharacterStyle.style.left = "35px";
             if (currentLeftPosition <= parseInt(main.width) - 230) {
+
                 leftPosition += 50;
-                console.log(currentLeftPosition);
                 currentLeftPosition = leftPosition + "px";
                 characterDiv.style.left = currentLeftPosition;
 
@@ -299,7 +474,7 @@ const loadGameplayScreen = () => {
 
 //* Event Listeners
 
-window.addEventListener("keydown", loadChooseCharacterScreenEvent);
+window.addEventListener("keydown", load_Choose_Character_Screen_Event);
 
 timerStartContinue = setInterval(() => {
 
@@ -314,19 +489,4 @@ timerStartContinue = setInterval(() => {
 }, 100);
 
 
-//* Pointer Image Mouse
-
-// const pointerImg = document.getElementById("selectedIcon");
-// // pointerImg.style.visibility = "hidden";
-// document.addEventListener('mousemove', (event) => {
-
-//     //! The mouse pointer doesn't work on different sizes
-
-//     pointerImg.style.left = (event.clientX - 370) + "px";
-//     pointerImg.style.top = (event.clientY - 200) + "px";
-
-// });
-
-
-// Move cursor onto the image
-
+//! Mouse Image it's showed after close the choose character screen
