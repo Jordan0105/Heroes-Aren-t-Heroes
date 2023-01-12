@@ -122,16 +122,12 @@ class Cloud {
 
     }
 }
-const newCharacter = new Character(characterImg);
 const newCloud = new Cloud();
 
 
 //* Event Listeners
 
 
-window.addEventListener("keydown", () => {
-    newCharacter.moveFunction(event);
-});
 
 timerStartContinue = setInterval(() => {
 
@@ -191,6 +187,7 @@ for (let i = 0; i < document.getElementsByClassName("characterBoxSpace").length;
         }, 100);
 
         switch (i) {
+
             case 0:
                 aura.style.top = "-12px";
                 aura.style.left = "56px";
@@ -199,26 +196,29 @@ for (let i = 0; i < document.getElementsByClassName("characterBoxSpace").length;
             case 1:
                 aura.style.top = "-12px";
                 aura.style.left = "488px";
-
                 break;
 
             case 2:
                 aura.style.top = "-12px";
                 aura.style.left = "918px";
                 break;
+
+            //Characters 2nd row
+
             case 3:
                 aura.style.top = "255px";
                 aura.style.left = "56px";
                 break;
+
             case 4:
                 aura.style.top = "255px";
                 aura.style.left = "494px";
                 break;
+
             case 5:
                 aura.style.top = "255px";
                 aura.style.left = "922px";
                 break;
-
         }
     });
 
@@ -239,13 +239,54 @@ for (let i = 0; i < document.getElementsByClassName("characterBoxSpace").length;
     })
 
     document.getElementsByClassName("characterBoxSpace")[i].addEventListener("click", event => {
+        const selectedImageIcon = document.getElementById("selectedImageIcon");
+        selectedImageIcon.style.display = "block";
 
         switch (i) {
-            case 1:
 
+            case 0:
+                selectedImageIcon.style.top = "0px";
+                selectedImageIcon.style.left = "347px";
+                break;
+            case 1:
+                selectedImageIcon.style.top = "0px";
+                selectedImageIcon.style.left = "768px";
+                break;
+            case 2:
+                selectedImageIcon.style.top = "0px";
+                selectedImageIcon.style.left = "1187px";
+                break;
+
+            //Characters 2nd row
+
+            case 3:
+                selectedImageIcon.style.top = "269px";
+                selectedImageIcon.style.left = "347px";
+                break;
+
+            case 4:
+                selectedImageIcon.style.top = "269px";
+                selectedImageIcon.style.left = "768px";
+                break;
+
+            case 5:
+                selectedImageIcon.style.top = "269px";
+                selectedImageIcon.style.left = "1187px";
                 break;
         }
+        document.getElementById("chooseCharacterText").innerHTML = "Press Any Key To Continue";
 
-    })
+        window.addEventListener("keydown", () => {
+
+            //TODO: Here the code of the playing screen is loaded.
+
+            const newCharacter = new Character(characterImg);
+            window.addEventListener("keydown", () => {
+                newCharacter.moveFunction(event);
+            });
+
+        })
+
+    });
 
 }

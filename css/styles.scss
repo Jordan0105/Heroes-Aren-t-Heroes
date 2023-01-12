@@ -4,7 +4,7 @@
 }
 
 
-//! mixins
+//! mixins 
 
 @mixin characterDiv{
     position: absolute;
@@ -113,6 +113,12 @@ body {
         z-index: -1;
        
     }
+}
+
+#selectedImageIcon{
+
+    position: absolute;
+    display: none; 
 }
 
 #characterContainer{

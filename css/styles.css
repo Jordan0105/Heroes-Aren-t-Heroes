@@ -73,6 +73,11 @@ body {
   z-index: -1;
 }
 
+#selectedImageIcon {
+  position: absolute;
+  display: none;
+}
+
 #characterContainer {
   width: 100%;
   display: grid;
