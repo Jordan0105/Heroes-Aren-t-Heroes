@@ -36,7 +36,6 @@ body {
   border: 5px solid whitesmoke;
   position: absolute;
   overflow: hidden;
-  display: none;
 }
 
 #startScreen img {
@@ -62,6 +61,7 @@ body {
   position: absolute;
   overflow: hidden;
   cursor: url("/assets/Icons/Selected_Icon.png"), auto;
+  display: none;
 }
 #chooseCharacter #aura {
   position: absolute;
@@ -157,6 +157,7 @@ body {
   /* min-width: 75px; */
   height: 150px;
   left: 35px;
+  border: 1px solid white;
 }
 
 #alienHitBox {

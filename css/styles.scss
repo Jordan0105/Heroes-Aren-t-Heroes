@@ -27,6 +27,7 @@
     /* min-width: 75px; */
     height: 150px;
     left: 35px;
+    border: 1px solid white;
 }
 
 body {
@@ -70,7 +71,7 @@ body {
     border: 5px solid whitesmoke;
     position: absolute;
     overflow: hidden;
-    display: none;
+    
 }
 
 
@@ -91,6 +92,7 @@ body {
 
 #chooseCharacter {
 
+    
     width: 1280px;
     height: 601.33px;
 
@@ -113,6 +115,8 @@ body {
         z-index: -1;
        
     }
+
+    display: none;
 }
 
 #selectedImageIcon{
@@ -224,11 +228,7 @@ body {
 //* HitBoxCharacter
 
 #characterHitBox {
-    position: absolute;
-    width: 94px;
-    /* min-width: 75px; */
-    height: 150px;
-    left: 35px;
+    @include characterHitBox;
 }
 
 #alienHitBox {
@@ -238,6 +238,7 @@ body {
     /* min-width: 37px; */
     height: 76px;
     left: 17px;
+   
 }
 
 //* Score Screen and Game Over
