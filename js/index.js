@@ -155,59 +155,55 @@ const collitionFunction = () => {
         hitBoxCharacter = window.getComputedStyle(characterHitBox);
 
 
-        try {
-            hitBoxCloud = window.getComputedStyle(cloudHitBox);
-            cloudDiv = window.getComputedStyle(cloudsDiv);
-        }
-        //314.509px
-        catch (e) {
-            console.log(`hitBoxAlien ${hitBoxAlien} hitBoxCharacter ${hitBoxCharacter}`)
+        // try {
+        //     hitBoxCloud = window.getComputedStyle(cloudHitBox);
+        //     cloudDiv = window.getComputedStyle(cloudsDiv);
+        // }
+        // //314.509px
+        // catch (e) {
+        //     console.log(`hitBoxAlien ${hitBoxAlien} hitBoxCharacter ${hitBoxCharacter}`)
 
-            return;
-        }
+        //     return;
+        // }
 
 
         currentHitPosition = parseFloat(hitBoxCharacter.left) + parseFloat(window.getComputedStyle(characterDiv).left);
         currentHitPositionAlien = parseFloat(hitBoxAlien.left) + parseFloat(window.getComputedStyle(alienDiv).left);
-        currentHitPositionCloud = parseFloat(hitBoxCloud.left) + parseFloat(window.getComputedStyle(cloudsDiv).left);
+        // currentHitPositionCloud = parseFloat(hitBoxCloud.left) + parseFloat(window.getComputedStyle(cloudsDiv).left);
 
 
 
         let didCollideAlien = (currentHitPosition + parseFloat(hitBoxCharacter.width)) >= currentHitPositionAlien && currentHitPosition <= (currentHitPositionAlien + parseFloat(hitBoxAlien.width));
-        let didCollideCloud = (currentHitPosition + parseFloat(hitBoxCharacter.width)) >= currentHitPositionCloud && currentHitPosition <= (currentHitPositionCloud + parseFloat(hitBoxCloud.width));
-        cloudCollideY = !((parseFloat(window.getComputedStyle(characterDiv).top)) >= (parseFloat(hitBoxCloud.height) + (parseFloat(cloudDiv.top) + parseFloat(hitBoxCloud.top))));
+        // let didCollideCloud = (currentHitPosition + parseFloat(hitBoxCharacter.width)) >= currentHitPositionCloud && currentHitPosition <= (currentHitPositionCloud + parseFloat(hitBoxCloud.width));
+        // cloudCollideY = !((parseFloat(window.getComputedStyle(characterDiv).top)) >= (parseFloat(hitBoxCloud.height) + (parseFloat(cloudDiv.top) + parseFloat(hitBoxCloud.top))));
 
-        console.log(`awas${didCollideAlien} ${parseFloat(window.getComputedStyle(characterDiv).top)}`)
 
         if (didCollideAlien && parseFloat(window.getComputedStyle(characterDiv).top) >= 325) {
 
             clearInterval(checkPosition);
             clearInterval(startMoving);
-            clearInterval(scoreTimer);
+            // clearInterval(scoreTimer);
             clearInterval(createCloudsInterval);
             clearInterval(cloudInterval1);
 
             // showScore();
 
         }
-        else if (didCollideCloud && cloudCollideY) {
+        // else if (didCollideCloud && cloudCollideY) {
 
 
-            // console.log("From top to up hit box " + (parseFloat(cloudDiv.top) + parseFloat(hitBoxCloud.top)));
-            // console.log("From top to bottom hitbox: " + (parseFloat(hitBoxCloud.height) + (parseFloat(cloudDiv.top) + parseFloat(hitBoxCloud.top))));
+        //     // console.log("From top to up hit box " + (parseFloat(cloudDiv.top) + parseFloat(hitBoxCloud.top)));
+        //     // console.log("From top to bottom hitbox: " + (parseFloat(hitBoxCloud.height) + (parseFloat(cloudDiv.top) + parseFloat(hitBoxCloud.top))));
 
-            // console.log("Froom top to up hitbox character: " + parseFloat(window.getComputedStyle(characterDiv).top));
-            // console.log("From top top to bottom hitbox: " + (parseFloat(window.getComputedStyle(characterDiv).top) + parseFloat(window.getComputedStyle(characterDiv).height)));
+        //     // console.log("Froom top to up hitbox character: " + parseFloat(window.getComputedStyle(characterDiv).top));
+        //     // console.log("From top top to bottom hitbox: " + (parseFloat(window.getComputedStyle(characterDiv).top) + parseFloat(window.getComputedStyle(characterDiv).height)));
 
-            clearInterval(startMoving);
-            clearInterval(scoreTimer);
-            clearInterval(createCloudsInterval);
-            clearInterval(cloudInterval1);
-            // showScore();
-        }
-
-
-
+        //     clearInterval(startMoving);
+        //     clearInterval(scoreTimer);
+        //     clearInterval(createCloudsInterval);
+        //     clearInterval(cloudInterval1);
+        //     // showScore();
+        // }
 
     }
 
@@ -227,9 +223,9 @@ const load_Gameplay_Screen_Event = () => {
 
     //* Load the Gameplay Screen
 
+
     load_Gameplay_Screen();
 
-    window.removeEventListener("keydown", load_Gameplay_Screen_Event);
 
 }
 
@@ -385,7 +381,7 @@ const load_Gameplay_Screen = () => {
     document.getElementById("characterImg").src = characterImgSrc;
     alien_Start_Moving_Function();
     collitionFunction();
-    createCloudsInterval = setInterval(createCloudFunction, 1000);
+    // createCloudsInterval = setInterval(createCloudFunction, 1000);
 
     moveFunction = (e) => {
 
