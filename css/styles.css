@@ -2,7 +2,6 @@
   font-family: gameFont;
   src: url("/assets/Fonts/gameFont.otf") format("opentype");
 }
-
 body {
   width: 100vw;
   height: 100vh;
@@ -64,7 +63,6 @@ body {
   cursor: url("/assets/Icons/Selected_Icon.png"), auto;
   display: none;
 }
-
 #chooseCharacter #aura {
   position: absolute;
   opacity: 0.6;
@@ -100,7 +98,6 @@ body {
   width: 425.66px;
   height: 263.66px;
 }
-
 .characterBoxSpace img {
   width: 160px;
   height: 185px;
@@ -160,12 +157,10 @@ body {
   /* min-width: 75px; */
   height: 150px;
   left: 35px;
-  border: 1px solid white;
 }
 
 #alienHitBox {
   position: absolute;
-  border: 1px solid white;
   width: 46px;
   /* min-width: 37px; */
   height: 76px;
@@ -205,7 +200,6 @@ body {
 
 #cloudHitBox {
   position: absolute;
-  border: 1px solid red;
   width: 180px;
   /* min-width: 37px; */
   top: 40px;
