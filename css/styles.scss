@@ -1,290 +1,330 @@
 @font-face {
-    font-family: gameFont;
-    src: url('/assets/Fonts/gameFont.otf') format("opentype");
+  font-family: gameFont;
+  src: url("/assets/Fonts/gameFont.otf") format("opentype");
 }
 
+$fontGame: gameFont;
 
-//! mixins 
+//! mixins
 
-@mixin characterDiv{
-    position: absolute;
-    width: min-content;
+@mixin characterDiv {
+  position: absolute;
+  width: min-content;
 
-    top: 400px;
-    left: 50px;
+  top: 400px;
+  left: 50px;
 
-    transform: scaleX(1);
+  transform: scaleX(1);
 }
 
-@mixin characterImg{
-    width: 181px;
-    height: 152px;
+@mixin characterImg {
+  width: 181px;
+  height: 152px;
 }
 
-@mixin characterHitBox{
-    position: absolute;
-    width: 94px;
-    /* min-width: 75px; */
-    height: 150px;
-    left: 35px;
+@mixin characterHitBox {
+  position: absolute;
+  width: 94px;
+  /* min-width: 75px; */
+  height: 150px;
+  left: 35px;
+  border: 1px solid white;
+
 }
 
 body {
+  width: 100vw;
+  height: 100vh;
+  min-width: 1024px;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  background-color: black;
+  overflow: hidden;
 
-    width: 100vw;
-    height: 100vh;
-    min-width: 1024px;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-wrap: nowrap;
-    align-items: center;
-    justify-content: center;
-    background-color: black;
-    overflow: hidden;
-
-    cursor: default;
+  cursor: default;
 }
 
 #main {
-    display: none;
-    width: 1280px;
-    height: 601.33px;
-    border: 5px solid whitesmoke;
-    position: absolute;
-    overflow: hidden;
+  display: none;
+  width: 1280px;
+  height: 601.33px;
+  border: 5px solid whitesmoke;
+  position: absolute;
+  overflow: hidden;
 }
 
 //* Start Screen
 
 #startScreen {
+  width: 1280px;
+  height: 601.33px;
 
-    width: 1280px;
-    height: 601.33px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+  border: 5px solid whitesmoke;
+  position: absolute;
+  overflow: hidden;
 
-    border: 5px solid whitesmoke;
-    position: absolute;
-    overflow: hidden;
-    
+  //   //?
+  //   display: none;
 }
 
-
 #startScreen img {
-    width: 700px;
-    height: 300px;
-    /* margin-top: -55px; */
-
+  width: 700px;
+  height: 300px;
+  /* margin-top: -55px; */
 }
 
 #startScreen h1 {
-    color: white;
-    padding-top: 65px;
-    font-family: gameFont;
+  color: white;
+  padding-top: 65px;
+  font-family: gameFont;
 }
 
 //* Choose Character Screen
 
+//TODO: Create  a mixin for chooseCharacter and main
 #chooseCharacter {
-
     
-    width: 1280px;
-    height: 601.33px;
+  width: 1281px;
+  height: 601.33px;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 
-    border: 5px solid whitesmoke;
+  border: 5px solid whitesmoke;
+  position: absolute;
+  overflow: hidden;
+  cursor: url("/assets/Icons/Selected_Icon.png"), auto;
+
+  #aura {
     position: absolute;
-    overflow: hidden;
-    cursor: url("/assets/Icons/Selected_Icon.png"), auto;
-    #aura{
-        position: absolute;
-        opacity: 0.6;
-        top: -12px;
-        left: 56px;
-        width: 305px;
-        height: 245px;
-        z-index: -1;
-       
-    }
+    opacity: 0.6;
+    top: -12px;
+    left: 56px;
+    width: 305px;
+    height: 245px;
+    z-index: -1;
+  }
 
-    display: none;
+  display: none;
 }
 
-#selectedImageIcon{
-
-    position: absolute;
-    display: none; 
+#selectedImageIcon {
+  position: absolute;
+  display: none;
 }
 
-#characterContainer{
-    width: 100%;
-
-    display: grid;
-    grid-template-columns: auto auto auto;
-
+#characterContainer {
+  width: 100%;
+  margin-top: 3px;
+  display: grid;
+  grid-template-columns: auto auto auto;
 }
 
-#chooseCharacter h1{
-    color: white;
-    font-family: gameFont;
-    
+#chooseCharacter h1 {
+  color: white;
+  font-family: gameFont;
 }
 
-.characterBoxSpace{
- 
-    border: 1px solid white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 0px;
-    width: 425.66px;
-    height: 263.66px;
+.characterBoxSpace {
 
-    img{
-        width: 160px;
-        height: 185px;
+  border: 1px solid white;
 
-    }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0px;
+  width: 425.66px;
+  height: 263.66px;
+
+  img {
+    width: 160px;
+    height: 185px;
+  }
 }
-
 
 .characterBoxSpace:nth-child(1) {
-    img{
-        width: 205px;
-    }
-    }
+  img {
+    width: 205px;
+  }
+}
 
-    .characterBoxSpace:nth-child(4){
-        img{
-            width: 244px;
-            height: 220px;
-            margin-top: -42px;
-        }
-    }
+.characterBoxSpace:nth-child(4) {
+  img {
+    width: 244px;
+    height: 220px;
+    margin-top: -42px;
+  }
+}
 
-    #selectedIcon{
-        width: 100px;
-        top: 0px;
-        left: 345px;
-        rotate: 338deg;
-        z-index: 0;
-        position: absolute;
-        
-    }
-
-
+#selectedIcon {
+  width: 100px;
+  top: 0px;
+  left: 345px;
+  rotate: 338deg;
+  z-index: 0;
+  position: absolute;
+}
 
 //TODO: This probably will be obsolete soon
 
-
 #characterDiv {
-    position: absolute;
-    width: min-content;
-
-    top: 400px;
-    left: 50px;
-
-    transform: scaleX(1);
-
+  @include characterDiv;
 }
 
 #alienDiv {
-    position: absolute;
-    width: min-content;
-    height: auto;
-    top: 475px;
-    left: 94px;
-
-
+  position: absolute;
+  width: min-content;
+  height: auto;
+  top: 475px;
+  left: 94px;
 }
 
 #characterImg {
-    width: 181px;
-    height: 152px;
+  width: 181px;
+  height: 152px;
 }
 
 #alienImg {
-    display: block;
-    /* min-width: 74px;
+  display: block;
+  /* min-width: 74px;
     max-height: 200px; */
-    width: 80px;
-    height: 80px;
-
+  width: 80px;
+  height: 80px;
 }
 
 //* HitBoxCharacter
 
 #characterHitBox {
-    @include characterHitBox;
+  @include characterHitBox;
 }
 
 #alienHitBox {
-    position: absolute;
-    width: 46px;
-    /* min-width: 37px; */
-    height: 76px;
-    left: 17px;
-   
+  position: absolute;
+  width: 46px;
+  /* min-width: 37px; */
+  height: 76px;
+  left: 17px;
 }
 
 //* Score Screen and Game Over
 
+#gameOverScreen {
+  display: none;
+  width: 1280px;
+  height: 601.33px;
+  border: 5px solid whitesmoke;
+  position: absolute;
+  overflow: hidden;
+}
+
 #scoreDiv {
-    position: absolute;
-    color: white;
-    left: 3vw;
-    font-family: Arial, Helvetica, sans-serif;
+  position: absolute;
+  color: white;
+  left: 3vw;
+  font-family: $fontGame;
 }
 
 #gameOver {
-    color: white;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    margin: -150px 0 0 -204px;
-    display: none;
-}
+  color: white;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin: -150px 0 0 -210px;
 
-#gameOverTitle {
-    font: italic bold 60px Arial;
-}
+  font: 30px $fontGame;
+  letter-spacing: 20px;
 
-#infoGameOver {
-
-    color: white;
+  #infoGameOver {
+    font-size: 30px;
+    letter-spacing: 0px;
+  }
 }
 
 //* Clouds Styles
 
 #cloudsDiv {
-    /* visibility: hidden; */
-    position: absolute;
-    left: 50px;
-    width: auto;
-
+  /* visibility: hidden; */
+  position: absolute;
+  left: 50px;
+  width: auto;
 }
 
 #cloudHitBox {
-    position: absolute;
-    width: 180px;
-    /* min-width: 37px; */
-    top: 40px;
-    height: 60px;
-    left: 12px;
+  position: absolute;
+  width: 180px;
+  /* min-width: 37px; */
+  top: 40px;
+  height: 60px;
+  left: 12px;
+  border: 1px solid white;
 }
 
 #cloudImg {
-
-    display: block;
-    width: 200px;
-    /* min-width: 150px; */
+  display: block;
+  width: 200px;
+  /* min-width: 150px; */
 }
 
+#buttonsGameOver {
+  width: 400px;
+  //   border: 1px solid white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 105px 0px 0px 40px;
+
+  .gameOverOptions {
+    width: 82px;
+    height: 84px;
+
+  }
+
+  #playAgain{
+    transform: rotate(60deg);
+  }
+
+}
+
+.gameOverOptions:nth-child(1):hover{
+  animation: push 1s infinite linear;
+}
+.gameOverOptions:nth-child(2):hover{
+  animation: spin 2s infinite linear;
+}
+.gameOverOptions:nth-child(3):hover{
+  animation: pulse 0.3s infinite linear alternate;
+}
+
+//Animationsssssssssss
+
+
+@keyframes pulse {
+  to {
+    transform: scale(1.1);
+  }
+  // 25%  {transform: scale(0.9);}
+  // 75%  {transform: scale(1.1);}
+}
+
+@keyframes spin {
+  from {
+    transform:rotate(60deg);  }
+  to {
+      transform:rotate(-300deg);
+  }
+}
+
+@keyframes push{
+  50%  {transform: scale(0.95);}
+}

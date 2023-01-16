@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <title>Simple Game</title>
 </head>
+
 <body>
+    
     <div id="startScreen">
-        <img src="https://fontmeme.com/permalink/230109/2ae511d2efefb833b7210b9bb8e21983.png" alt="" srcset="">
+        <img class="animate__animated animate__jackInTheBox" src="https://fontmeme.com/permalink/230109/2ae511d2efefb833b7210b9bb8e21983.png" alt="Game Title">
         <h1 id="textStart" style="opacity: 1">Press Start to Continue</h1>
     </div>
 
@@ -36,11 +40,12 @@
                 <img id="IronMan" src="../assets/Characters/Iron-Man.png" alt="Iron-Man">
             </div>
         </div>
- 
-        
+
+
         <h1 id="chooseCharacterText">Choose your Character</h1>
         <img id="aura" src="/assets/Icons/Aura.png" alt="Aura" style="opacity: 0;">
     </div>
+    
     <div id="main">
         <div id="characterDiv">
             <div id="characterHitBox"></div>
@@ -53,20 +58,25 @@
         <div id="scoreDiv">
             <h3 id="scoreH3">Score 0</h3>
         </div>
-       <div id="gameOver">
-        <h1 id="gameOverTitle">Game Over</h1>
-        <h2 id="infoGameOver"></h2>
-       </div>
-
-       <!-- <div class="cloudsDiv">
-        <div class="hitBoxCloud"></div>
-        <img class="cloudImg" src="../assets/Cloud.png" alt="Cloud">
-       </div> -->
-
     </div>
+
+    <div id="gameOverScreen">
+        <div id="gameOver">
+            <h1 id="gameOverTitle">Game Over</h1>
+            <h2 id="infoGameOver"></h2>
+            <div id="buttonsGameOver" class="buttonsGameOver">
+                <img class="gameOverOptions" src="../assets/Icons/Home.png" alt="Home Button">
+                <img id="playAgain" class="gameOverOptions" src="../assets/Icons/Play Again.png" alt="Play Again Button">
+                <img class="gameOverOptions" src="../assets/Icons/SuperHeroe_v2.png" alt="Choose Character Button">
+
+            </div>
+
+        </div>
     </div>
-    
+  
+
     <script src="../js/index.js"></script>
 
 </body>
+
 </html>

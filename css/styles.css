@@ -51,7 +51,7 @@ body {
 }
 
 #chooseCharacter {
-  width: 1280px;
+  width: 1281px;
   height: 601.33px;
   display: flex;
   justify-content: center;
@@ -80,6 +80,7 @@ body {
 
 #characterContainer {
   width: 100%;
+  margin-top: 3px;
   display: grid;
   grid-template-columns: auto auto auto;
 }
@@ -146,7 +147,7 @@ body {
 #alienImg {
   display: block;
   /* min-width: 74px;
-  max-height: 200px; */
+    max-height: 200px; */
   width: 80px;
   height: 80px;
 }
@@ -157,6 +158,7 @@ body {
   /* min-width: 75px; */
   height: 150px;
   left: 35px;
+  border: 1px solid white;
 }
 
 #alienHitBox {
@@ -167,11 +169,20 @@ body {
   left: 17px;
 }
 
+#gameOverScreen {
+  display: none;
+  width: 1280px;
+  height: 601.33px;
+  border: 5px solid whitesmoke;
+  position: absolute;
+  overflow: hidden;
+}
+
 #scoreDiv {
   position: absolute;
   color: white;
   left: 3vw;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: gameFont;
 }
 
 #gameOver {
@@ -179,16 +190,13 @@ body {
   position: absolute;
   left: 50%;
   top: 50%;
-  margin: -150px 0 0 -204px;
-  display: none;
+  margin: -150px 0 0 -210px;
+  font: 30px gameFont;
+  letter-spacing: 20px;
 }
-
-#gameOverTitle {
-  font: italic bold 60px Arial;
-}
-
-#infoGameOver {
-  color: white;
+#gameOver #infoGameOver {
+  font-size: 30px;
+  letter-spacing: 0px;
 }
 
 #cloudsDiv {
@@ -205,12 +213,59 @@ body {
   top: 40px;
   height: 60px;
   left: 12px;
+  border: 1px solid white;
 }
 
 #cloudImg {
   display: block;
   width: 200px;
   /* min-width: 150px; */
+}
+
+#buttonsGameOver {
+  width: 400px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 105px 0px 0px 40px;
+}
+#buttonsGameOver .gameOverOptions {
+  width: 82px;
+  height: 84px;
+}
+#buttonsGameOver #playAgain {
+  transform: rotate(60deg);
+}
+
+.gameOverOptions:nth-child(1):hover {
+  animation: push 1s infinite linear;
+}
+
+.gameOverOptions:nth-child(2):hover {
+  animation: spin 2s infinite linear;
+}
+
+.gameOverOptions:nth-child(3):hover {
+  animation: pulse 0.3s infinite linear alternate;
+}
+
+@keyframes pulse {
+  to {
+    transform: scale(1.1);
+  }
+}
+@keyframes spin {
+  from {
+    transform: rotate(60deg);
+  }
+  to {
+    transform: rotate(-300deg);
+  }
+}
+@keyframes push {
+  50% {
+    transform: scale(0.95);
+  }
 }
 
 /*# sourceMappingURL=styles.css.map */

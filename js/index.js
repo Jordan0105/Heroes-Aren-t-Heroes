@@ -1,4 +1,9 @@
 
+
+//AAAAAAAAA
+
+let imageClicked = 0;
+
 //HTML Element Selector
 
 const startScreen = document.getElementById("startScreen");
@@ -16,7 +21,6 @@ let timerJump = null,
     leftPosition = 0,
     jumpSpeed = 10,
     cloudPosition = 1300,
-    cloudsGenerated = 0,
     cloudInterval1,
     existCloud = false,
     startMoving,
@@ -24,6 +28,7 @@ let timerJump = null,
     createCloudsInterval,
     opacityAuraSetinterval,
     scoreTimer,
+    checkPosition,
     opacity = 0;
 
 let score = 0;
@@ -31,20 +36,99 @@ let highScore;
 
 //* Functions
 
+//Movements
+
+moveFunction = (e) => {
+
+    if (e.code == "Space") {
+
+        if (timerJump === null) {
+            positionJump = 400;
+            timerJump = setInterval(jumpAnimation, jumpSpeed);
+
+            function jumpAnimation() {
+                if (positionJump <= 120) {
+
+                    clearInterval(timerJump);
+                    timerJump = setInterval(jumpDownAnimation, jumpSpeed);
+                } else {
+
+                    positionJump -= 12;
+                    characterDiv.style.top = positionJump + "px";
+                }
+            }
+
+            function jumpDownAnimation() {
+
+
+                if (positionJump >= 400) {
+                    clearInterval(timerJump);
+                    timerJump = null;
+                } else {
+                    positionJump += 11;
+                    characterDiv.style.top = positionJump + "px";
+                }
+            }
+        }
+
+    }
+
+
+    if (e.code == "ArrowRight") {
+
+        let currentLeftPosition = parseInt(getComputedStyle(characterDiv).left);
+        characterImg.style.transform = "scaleX(1)";
+
+        hitBoxCharacterStyle.style.left = "35px";
+        if (currentLeftPosition <= parseInt(main.width) - 230) {
+
+            leftPosition += 50;
+            currentLeftPosition = leftPosition + "px";
+            characterDiv.style.left = currentLeftPosition;
+
+        }
+
+    }
+
+    if (e.code == "ArrowLeft") {
+        let currentRigthPosition = parseInt(window.getComputedStyle(characterDiv).left);
+        characterImg.style.transform = "scaleX(-1)";
+
+        hitBoxCharacterStyle.style.left = "50px";
+        if (currentRigthPosition == 50) {
+
+            leftPosition = 0;
+            currentRigthPosition = leftPosition + "px";
+            characterDiv.style.left = currentRigthPosition;
+
+        }
+
+        else if (currentRigthPosition != 0) {
+
+            leftPosition -= 50;
+            currentRigthPosition = leftPosition + "px";
+            characterDiv.style.left = currentRigthPosition;
+
+        }
+
+    }
+
+};
+
 //Clouds Function
 
-function randomTopCloud() {
+const random_Top_Cloud = () => {
 
     const heightPx = [70, 100, 120, 50, 65, 80];
     const height = Math.floor(Math.random() * (5 - 0 + 1) + 0);
     return heightPx[height];
 }
 
-function createCloudFunction() {
+const create_Cloud_Function = () => {
+
 
     // document.getElementsByClassName("cloudsDiv")[3].remove();
     if (existCloud == false) {
-
 
         const cloudsDiv = document.createElement("div");
         const hitBoxCloud = document.createElement("div");
@@ -61,22 +145,17 @@ function createCloudFunction() {
         cloudImg.src = "../assets/Cloud.png";
         cloudImg.alt = "Cloud";
 
-        document.getElementById("cloudsDiv").style.top = randomTopCloud() + "px";
+        document.getElementById("cloudsDiv").style.top = random_Top_Cloud() + "px";
         document.getElementById("cloudsDiv").style.left = "1300px";
 
+        existCloud = true;
 
-        cloudInterval1 = setInterval(moveClouds, 10);
-
+        cloudInterval1 = setInterval(moveClouds, 10); //10
 
     }
 }
+
 const moveClouds = () => {
-
-    // if (document.getElementById("cloudsDiv").style.left <= "1300") {
-
-    //     document.getElementById("cloudsDiv").style.visibility = "visible";
-    // }
-
 
     if (document.getElementById("cloudsDiv").style.left == "-230px") {
         //Delete elements
@@ -143,7 +222,7 @@ const alien_Start_Moving_Function = () => {
     function alienMovementRight() {
         alienImg.style.transform = "scaleX(1)";
 
-        // getSpeed(score);
+        getSpeed(score);
 
         if (position <= 0) {
             clearInterval(startMoving);
@@ -157,7 +236,7 @@ const alien_Start_Moving_Function = () => {
 
     function alienMovementLeft() {
 
-        // getSpeed(score);
+        getSpeed(score);
         alienImg.style.transform = "scaleX(-1)";
         if (position >= 1200) {
             clearInterval(startMoving);
@@ -174,86 +253,66 @@ const alien_Start_Moving_Function = () => {
 
 //Collition Functions
 
-const collitionFunction = () => {
+function watchMyElement() {
 
-
-    let checkPosition = setInterval(watchMyElement, 1);
     let hitBoxAlien, hitBoxCharacter, currentHitPosition,
         currentHitPositionAlien, hitBoxCloud, currentHitPositionCloud;
     let cloudDiv;
     let cloudCollideY;
+    let didCollideCloud;
 
-    function watchMyElement() {
+    hitBoxAlien = window.getComputedStyle(alienHitBox);
+    hitBoxCharacter = window.getComputedStyle(characterHitBox);
 
-        hitBoxAlien = window.getComputedStyle(alienHitBox);
-        hitBoxCharacter = window.getComputedStyle(characterHitBox);
-
-
-        try {
-            hitBoxCloud = window.getComputedStyle(cloudHitBox);
-            cloudDiv = window.getComputedStyle(cloudsDiv);
-        }
-        //314.509px
-        catch (e) {
-
-            return;
-        }
+    currentHitPosition = parseFloat(hitBoxCharacter.left) + parseFloat(window.getComputedStyle(characterDiv).left);
+    currentHitPositionAlien = parseFloat(hitBoxAlien.left) + parseFloat(window.getComputedStyle(alienDiv).left);
 
 
-        currentHitPosition = parseFloat(hitBoxCharacter.left) + parseFloat(window.getComputedStyle(characterDiv).left);
-        currentHitPositionAlien = parseFloat(hitBoxAlien.left) + parseFloat(window.getComputedStyle(alienDiv).left);
+
+
+    if (existCloud) {
+        hitBoxCloud = window.getComputedStyle(cloudHitBox);
+        cloudDiv = window.getComputedStyle(cloudsDiv);
         currentHitPositionCloud = parseFloat(hitBoxCloud.left) + parseFloat(window.getComputedStyle(cloudsDiv).left);
-
-
-        let didCollideAlien = (currentHitPosition + parseFloat(hitBoxCharacter.width)) >= currentHitPositionAlien && currentHitPosition <= (currentHitPositionAlien + parseFloat(hitBoxAlien.width));
-        let didCollideCloud = (currentHitPosition + parseFloat(hitBoxCharacter.width)) >= currentHitPositionCloud && currentHitPosition <= (currentHitPositionCloud + parseFloat(hitBoxCloud.width));
+        didCollideCloud = (currentHitPosition + parseFloat(hitBoxCharacter.width)) >= currentHitPositionCloud && currentHitPosition <= (currentHitPositionCloud + parseFloat(hitBoxCloud.width));
         cloudCollideY = !((parseFloat(window.getComputedStyle(characterDiv).top)) >= (parseFloat(hitBoxCloud.height) + (parseFloat(cloudDiv.top) + parseFloat(hitBoxCloud.top))));
 
-
-        if (didCollideAlien && parseFloat(window.getComputedStyle(characterDiv).top) >= 325) {
-
-            clearInterval(checkPosition);
-            clearInterval(startMoving);
-            clearInterval(scoreTimer);
-            clearInterval(createCloudsInterval);
-            clearInterval(cloudInterval1);
-
-            showScore();
-
-        }
-        else if (didCollideCloud && cloudCollideY) {
+    }
+    //314.509px
 
 
-            // console.log("From top to up hit box " + (parseFloat(cloudDiv.top) + parseFloat(hitBoxCloud.top)));
-            // console.log("From top to bottom hitbox: " + (parseFloat(hitBoxCloud.height) + (parseFloat(cloudDiv.top) + parseFloat(hitBoxCloud.top))));
+    let didCollideAlien = (currentHitPosition + parseFloat(hitBoxCharacter.width)) >= currentHitPositionAlien && currentHitPosition <= (currentHitPositionAlien + parseFloat(hitBoxAlien.width));
 
-            // console.log("Froom top to up hitbox character: " + parseFloat(window.getComputedStyle(characterDiv).top));
-            // console.log("From top top to bottom hitbox: " + (parseFloat(window.getComputedStyle(characterDiv).top) + parseFloat(window.getComputedStyle(characterDiv).height)));
+    if (didCollideAlien && parseFloat(window.getComputedStyle(characterDiv).top) >= 325) {
 
-            clearInterval(startMoving);
-            clearInterval(scoreTimer);
-            clearInterval(createCloudsInterval);
-            clearInterval(cloudInterval1);
-            showScore();
-        }
+        close_Gameplay_Screen();
+        load_Show_Score_Screen();
+    }
+
+    else if (didCollideCloud && cloudCollideY) {
+        close_Gameplay_Screen();
+        load_Show_Score_Screen();
 
     }
 
 }
 
+const collitionFunction = () => {
+
+
+    checkPosition = setInterval(watchMyElement, 1);
+
+}
+
 //Score
 
-function showScore() {
+const load_Show_Score_Screen = () => {
 
-    document.getElementById("cloudsDiv").style.display = "none";
+    document.getElementById("gameOverScreen").style.display = "block";
+    document.getElementById("gameOverScreen").style.cursor = "default";
 
-    const gameOver = document.getElementById("gameOver");
+    clickButtonScore();
     const infoGameOver = document.getElementById("infoGameOver");
-
-    scoreTitle.style.display = 'none';
-    alienDiv.style.display = "none";
-    characterDiv.style.display = "none";
-    gameOver.style.display = "block";
 
     if (sessionStorage.length < 2) {
         highScore = score;
@@ -275,11 +334,12 @@ function showScore() {
 
 
     }
-
+    score = 0;
 }
 
 const close_Home_Screen = () => {
     clearInterval(timerStartContinue);
+
     startScreen.style.display = "none";
 }
 
@@ -291,254 +351,248 @@ const load_Gameplay_Screen_Event = () => {
 
     //* Load the Gameplay Screen
 
-
     load_Gameplay_Screen();
     window.removeEventListener("keydown", load_Gameplay_Screen_Event);
 
 }
 
-const load_Choose_Character_Screen_Event = () => {
+const load_Choose_Character_Screen_Event = (event) => {
 
-    //Load the select character screen
-    close_Home_Screen();
-    load_Choose_Character_Screen();
-    window.removeEventListener("keydown", load_Choose_Character_Screen_Event);
+    const allowedKeys = /^(Space|Enter|Backspace)$/;
+
+    if (allowedKeys.test(event.code)) {
+
+        close_Home_Screen();
+
+        //Load the select character screen
+        load_Choose_Character_Screen();
+        window.removeEventListener("keydown", load_Choose_Character_Screen_Event);
+    }
+
 }
 
 //TODO: Create the loadHomeScreen Function
+
+const load_Home_Screen = () => {
+
+
+    startScreen.style.display = "flex";
+    timerStartContinue = setInterval(() => {
+
+        const startText = document.getElementById("textStart");
+
+        if (startText.style.opacity == "0.4")
+            startText.style.opacity = "1";
+
+        else
+            startText.style.opacity = "0.4";
+
+    }, 100);
+
+    window.addEventListener("keydown", load_Choose_Character_Screen_Event);
+}
 
 const close_Choose_Character_Screen = () => {
 
     document.getElementById("chooseCharacter").style.display = "none";
 
+
+    //Delete the event listeners
+
+    for (let i = 0; i < document.getElementsByClassName("characterBoxSpace").length; i++) {
+        let element = document.getElementsByClassName("characterBoxSpace")[i];
+        let clone = element.cloneNode(true);
+        element.parentNode.replaceChild(clone, element);
+    }
+
+
+}
+
+const show_Aura_Event = () => {
+
+    let parent = document.getElementById("characterContainer");
+
+    let clickedElement = event.target;
+
+    let i = Array.from(parent.children).indexOf(clickedElement);
+
+    const aura = document.getElementById("aura");
+    clearInterval(opacityAuraSetinterval);
+    opacity = 0;
+    aura.style.opacity = opacity;
+
+    opacityAuraSetinterval = setInterval(() => {
+
+
+        aura.style.opacity = opacity;
+
+        if (aura.style.opacity <= 0.6) {
+            opacity = opacity + 0.05;
+            aura.style.opacity = opacity;
+        }
+        else {
+            clearInterval(opacityAuraSetinterval);
+            opacity = 0;
+
+        }
+
+
+
+    }, 100);
+
+    switch (i) {
+
+        case 0:
+            aura.style.top = "-12px";
+            aura.style.left = "56px";
+            break;
+
+        case 1:
+            aura.style.top = "-12px";
+            aura.style.left = "488px";
+            break;
+
+        case 2:
+            aura.style.top = "-12px";
+            aura.style.left = "918px";
+            break;
+
+        //Characters 2nd row
+
+        case 3:
+            aura.style.top = "255px";
+            aura.style.left = "56px";
+            break;
+
+        case 4:
+            aura.style.top = "255px";
+            aura.style.left = "494px";
+            break;
+
+        case 5:
+            aura.style.top = "255px";
+            aura.style.left = "922px";
+            break;
+    }
+}
+
+const disappear_Aura_Event = () => {
+
+    const aura = document.getElementById("aura");
+    clearInterval(opacityAuraSetinterval);
+    aura.style.opacity = 0;
+
+}
+
+const clicked_Icon_Event = (i) => {
+
+    const selectedImageIcon = document.getElementById("selectedImageIcon");
+    selectedImageIcon.style.display = "block";
+
+    characterImgSrc = document.getElementsByClassName("characterBoxSpace")[i].firstElementChild.src;
+    characterAlt = document.getElementsByClassName("characterBoxSpace")[i].firstElementChild.alt;
+
+    switch (i) {
+
+        case 0:
+            selectedImageIcon.style.top = "0px";
+            selectedImageIcon.style.left = "347px";
+            break;
+        case 1:
+            selectedImageIcon.style.top = "0px";
+            selectedImageIcon.style.left = "768px";
+            break;
+        case 2:
+            selectedImageIcon.style.top = "0px";
+            selectedImageIcon.style.left = "1187px";
+            break;
+
+        //Characters 2nd row
+
+        case 3:
+            selectedImageIcon.style.top = "269px";
+            selectedImageIcon.style.left = "347px";
+            break;
+
+        case 4:
+            selectedImageIcon.style.top = "269px";
+            selectedImageIcon.style.left = "768px";
+            break;
+
+        case 5:
+            selectedImageIcon.style.top = "269px";
+            selectedImageIcon.style.left = "1187px";
+            break;
+    }
+    document.getElementById("chooseCharacterText").innerHTML = "Press Any Key To Continue";
+    window.addEventListener("keydown", load_Gameplay_Screen_Event);
 }
 
 const load_Choose_Character_Screen = () => {
+
 
     document.getElementById("chooseCharacter").style.display = "flex";
 
     for (let i = 0; i < document.getElementsByClassName("characterBoxSpace").length; i++) {
 
-        document.getElementsByClassName("characterBoxSpace")[i].addEventListener("mouseenter", (event) => {
-            // console.log(document.getElementsByClassName("characterBoxSpaceHidden")[i].id);
-            const aura = document.getElementById("aura");
-            clearInterval(opacityAuraSetinterval);
-            opacity = 0;
-            aura.style.opacity = opacity;
-
-            opacityAuraSetinterval = setInterval(() => {
-
-
-                aura.style.opacity = opacity;
-
-                if (aura.style.opacity <= 0.6) {
-                    opacity = opacity + 0.05;
-                    aura.style.opacity = opacity;
-                }
-                else {
-                    clearInterval(opacityAuraSetinterval);
-                    opacity = 0;
-
-                }
-
-
-
-            }, 100);
-
-            switch (i) {
-
-                case 0:
-                    aura.style.top = "-12px";
-                    aura.style.left = "56px";
-                    break;
-
-                case 1:
-                    aura.style.top = "-12px";
-                    aura.style.left = "488px";
-                    break;
-
-                case 2:
-                    aura.style.top = "-12px";
-                    aura.style.left = "918px";
-                    break;
-
-                //Characters 2nd row
-
-                case 3:
-                    aura.style.top = "255px";
-                    aura.style.left = "56px";
-                    break;
-
-                case 4:
-                    aura.style.top = "255px";
-                    aura.style.left = "494px";
-                    break;
-
-                case 5:
-                    aura.style.top = "255px";
-                    aura.style.left = "922px";
-                    break;
-            }
-        });
-
-        document.getElementsByClassName("characterBoxSpace")[i].addEventListener("mouseleave", event => {
-
-            const aura = document.getElementById("aura");
-            clearInterval(opacityAuraSetinterval);
-            aura.style.opacity = 0;
-
-        })
-
-        document.getElementsByClassName("characterBoxSpace")[i].addEventListener("click", event => {
-            const selectedImageIcon = document.getElementById("selectedImageIcon");
-            selectedImageIcon.style.display = "block";
-
-            characterImgSrc = document.getElementsByClassName("characterBoxSpace")[i].firstElementChild.src;
-            characterAlt = document.getElementsByClassName("characterBoxSpace")[i].firstElementChild.alt;
-
-            switch (i) {
-
-                case 0:
-                    selectedImageIcon.style.top = "0px";
-                    selectedImageIcon.style.left = "347px";
-                    break;
-                case 1:
-                    selectedImageIcon.style.top = "0px";
-                    selectedImageIcon.style.left = "768px";
-                    break;
-                case 2:
-                    selectedImageIcon.style.top = "0px";
-                    selectedImageIcon.style.left = "1187px";
-                    break;
-
-                //Characters 2nd row
-
-                case 3:
-                    selectedImageIcon.style.top = "269px";
-                    selectedImageIcon.style.left = "347px";
-                    break;
-
-                case 4:
-                    selectedImageIcon.style.top = "269px";
-                    selectedImageIcon.style.left = "768px";
-                    break;
-
-                case 5:
-                    selectedImageIcon.style.top = "269px";
-                    selectedImageIcon.style.left = "1187px";
-                    break;
-            }
-            document.getElementById("chooseCharacterText").innerHTML = "Press Any Key To Continue";
-
-            window.addEventListener("keydown", load_Gameplay_Screen_Event);
-
-        });
+        document.getElementsByClassName("characterBoxSpace")[i].addEventListener("mouseenter", show_Aura_Event);
+        document.getElementsByClassName("characterBoxSpace")[i].addEventListener("mouseleave", disappear_Aura_Event)
+        document.getElementsByClassName("characterBoxSpace")[i].addEventListener("click", () => clicked_Icon_Event(i));
 
     }
 }
 
 const close_Gameplay_Screen = () => {
 
+    document.getElementById("main").style.display = "none";
+    document.getElementById("cloudsDiv").remove();
+    existCloud = false;
+    cloudPosition = 1300;
+    leftPosition = 0;
+    document.getElementById("characterDiv").style.left = "50px";
+
+
+
+    // alienDiv.style.display = "none";
+    // characterDiv.style.display = "none";
+
+
+    clearInterval(checkPosition);
+    clearInterval(startMoving);
+    clearInterval(scoreTimer);
+    clearInterval(createCloudsInterval);
+
+    clearInterval(cloudInterval1);
+
+    window.removeEventListener("keydown", moveFunction);
+
 }
 
 const load_Gameplay_Screen = () => {
+
+    //TODO: Make the cloud position
 
     document.getElementById("main").style.display = "block";
     document.getElementById("main").style.cursor = "none";
 
     document.getElementById("characterImg").src = characterImgSrc;
+    document.getElementById("characterDiv").style.left = "50px";
 
     scoreTimer = setInterval(countScore = () => { score++; scoreTitle.innerHTML = "Score " + score; }, 100);
     alien_Start_Moving_Function();
+
     collitionFunction();
-    createCloudsInterval = setInterval(createCloudFunction, 1000);
+    createCloudsInterval = setInterval(create_Cloud_Function, 1000); //1000
 
-    moveFunction = (e) => {
-
-        if (e.code == "Space") {
-
-            if (timerJump === null) {
-                positionJump = 400;
-                timerJump = setInterval(jumpAnimation, jumpSpeed);
-
-                function jumpAnimation() {
-                    if (positionJump <= 120) {
-
-                        clearInterval(timerJump);
-                        timerJump = setInterval(jumpDownAnimation, jumpSpeed);
-                    } else {
-
-                        positionJump -= 12;
-                        characterDiv.style.top = positionJump + "px";
-                    }
-                }
-
-                function jumpDownAnimation() {
-
-
-                    if (positionJump >= 400) {
-                        clearInterval(timerJump);
-                        timerJump = null;
-                    } else {
-                        positionJump += 11;
-                        characterDiv.style.top = positionJump + "px";
-                    }
-                }
-            }
-
-        }
-
-
-        if (e.code == "ArrowRight") {
-
-            let currentLeftPosition = parseInt(getComputedStyle(characterDiv).left);
-            characterImg.style.transform = "scaleX(1)";
-
-            hitBoxCharacterStyle.style.left = "35px";
-            if (currentLeftPosition <= parseInt(main.width) - 230) {
-
-                leftPosition += 50;
-                currentLeftPosition = leftPosition + "px";
-                characterDiv.style.left = currentLeftPosition;
-
-            }
-
-        }
-
-        if (e.code == "ArrowLeft") {
-            let currentRigthPosition = parseInt(window.getComputedStyle(characterDiv).left);
-            characterImg.style.transform = "scaleX(-1)";
-
-            hitBoxCharacterStyle.style.left = "50px";
-            if (currentRigthPosition == 50) {
-
-                leftPosition = 0;
-                currentRigthPosition = leftPosition + "px";
-                characterDiv.style.left = currentRigthPosition;
-
-            }
-
-            else if (currentRigthPosition != 0) {
-
-                leftPosition -= 50;
-                currentRigthPosition = leftPosition + "px";
-                characterDiv.style.left = currentRigthPosition;
-
-            }
-
-        }
-
-    };
-
-
-    //Not yet
-    window.addEventListener("keydown", () => {
-        moveFunction(event);
-    });
+    window.addEventListener("keydown", moveFunction);
 }
 
 
 //* Event Listeners
+
+
+//? Here starts my program 
+
 
 window.addEventListener("keydown", load_Choose_Character_Screen_Event);
 
@@ -556,3 +610,45 @@ timerStartContinue = setInterval(() => {
 
 
 //! Mouse Image it's showed after close the choose character screen
+
+//Click on image element
+
+const clickButtonScore = () => {
+
+
+    for (let i = 0; i < document.getElementsByClassName("gameOverOptions").length; i++) {
+
+        imageClicked = i;
+        document.getElementsByClassName("gameOverOptions")[i].addEventListener("click", click_Screen_Buttons_Event);
+
+    }
+
+}
+
+const click_Screen_Buttons_Event = (event) => {
+
+    let clickedImage = event.target.alt;
+
+    for (let i = 0; i < document.getElementsByClassName("gameOverOptions").length; i++) {
+        document.getElementsByClassName("gameOverOptions")[i].removeEventListener("click", click_Screen_Buttons_Event);
+    }
+
+    if (clickedImage === "Home Button") {
+
+        load_Home_Screen();
+
+    }
+    else if (clickedImage === "Play Again Button") {
+        load_Gameplay_Screen();
+    }
+    else {
+        load_Choose_Character_Screen();
+    }
+
+    document.getElementById("gameOverScreen").style.display = "none";
+
+}
+
+//Todo: Fix cloud problems interval
+
+
