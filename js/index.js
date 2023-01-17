@@ -338,21 +338,39 @@ const load_Show_Score_Screen = () => {
 }
 
 const close_Home_Screen = () => {
-    clearInterval(timerStartContinue);
 
-    startScreen.style.display = "none";
+    clearInterval(timerStartContinue);
+    startScreen.classList.add("animate__animated", "animate__zoomOutDown");
+
+    setTimeout(() => {
+        startScreen.style.display = "none";
+        startScreen.className = "";
+        startText.style.visibility = "hidden";
+    }, 1500);
+
 }
 
 const load_Gameplay_Screen_Event = () => {
+
+    window.removeEventListener("keydown", load_Gameplay_Screen_Event);
+
 
     //* Delete the previous screen
 
     close_Choose_Character_Screen();
 
     //* Load the Gameplay Screen
+    setTimeout(() => {
 
-    load_Gameplay_Screen();
-    window.removeEventListener("keydown", load_Gameplay_Screen_Event);
+        //Todo: Maybe we need to clear the classes of chooseCharacter and re-assign in every render
+        document.getElementById("chooseCharacter").className = "";
+        document.getElementById("chooseCharacter").style.display = "none";
+        load_Gameplay_Screen();
+    }, 1500);
+
+
+
+
 
 }
 
@@ -362,11 +380,14 @@ const load_Choose_Character_Screen_Event = (event) => {
 
     if (allowedKeys.test(event.code)) {
 
+        window.removeEventListener("keydown", load_Choose_Character_Screen_Event);
+
         close_Home_Screen();
 
         //Load the select character screen
-        load_Choose_Character_Screen();
-        window.removeEventListener("keydown", load_Choose_Character_Screen_Event);
+        setTimeout(() => {
+            load_Choose_Character_Screen();
+        }, 1200);
     }
 
 }
@@ -377,25 +398,38 @@ const load_Home_Screen = () => {
 
 
     startScreen.style.display = "flex";
-    timerStartContinue = setInterval(() => {
 
-        const startText = document.getElementById("textStart");
 
-        if (startText.style.opacity == "0.4")
-            startText.style.opacity = "1";
+    setTimeout(() => {
+        startText.classList.add("animate__animated", "animate__bounceIn");
+        startText.style.visibility = "visible";
 
-        else
-            startText.style.opacity = "0.4";
+        setTimeout(() => {
+            timerStartContinue = setInterval(() => {
 
-    }, 100);
+                startText.classList.remove("animate__animated", "animate__bounceIn");
 
-    window.addEventListener("keydown", load_Choose_Character_Screen_Event);
+                if (startText.style.opacity == "0.4")
+                    startText.style.opacity = "1";
+
+                else
+                    startText.style.opacity = "0.4";
+
+            }, 100);
+        }, 500);
+
+
+    }, 1500);
+
+    setTimeout(() => {
+        window.addEventListener("keydown", load_Choose_Character_Screen_Event);
+    }, 2500);
 }
 
 const close_Choose_Character_Screen = () => {
 
-    document.getElementById("chooseCharacter").style.display = "none";
 
+    document.getElementById("chooseCharacter").className = "slideInDownAnimation";
 
     //Delete the event listeners
 
@@ -530,16 +564,21 @@ const clicked_Icon_Event = (i) => {
 
 const load_Choose_Character_Screen = () => {
 
-
     document.getElementById("chooseCharacter").style.display = "flex";
 
-    for (let i = 0; i < document.getElementsByClassName("characterBoxSpace").length; i++) {
+    setTimeout(() => {
 
-        document.getElementsByClassName("characterBoxSpace")[i].addEventListener("mouseenter", show_Aura_Event);
-        document.getElementsByClassName("characterBoxSpace")[i].addEventListener("mouseleave", disappear_Aura_Event)
-        document.getElementsByClassName("characterBoxSpace")[i].addEventListener("click", () => clicked_Icon_Event(i));
 
-    }
+        for (let i = 0; i < document.getElementsByClassName("characterBoxSpace").length; i++) {
+
+            document.getElementsByClassName("characterBoxSpace")[i].addEventListener("mouseenter", show_Aura_Event);
+            document.getElementsByClassName("characterBoxSpace")[i].addEventListener("mouseleave", disappear_Aura_Event)
+            document.getElementsByClassName("characterBoxSpace")[i].addEventListener("click", () => clicked_Icon_Event(i));
+
+        }
+    }, 1000);
+
+
 }
 
 const close_Gameplay_Screen = () => {
@@ -593,20 +632,38 @@ const load_Gameplay_Screen = () => {
 
 //? Here starts my program 
 
+setTimeout(() => {
+    window.addEventListener("keydown", load_Choose_Character_Screen_Event);
+}, 3000);
 
-window.addEventListener("keydown", load_Choose_Character_Screen_Event);
+const startText = document.getElementById("textStart");
 
-timerStartContinue = setInterval(() => {
 
-    const startText = document.getElementById("textStart");
+setTimeout(() => {
+    startText.classList.add("animate__animated", "animate__bounceIn");
+    startText.style.visibility = "visible";
 
-    if (startText.style.opacity == "0.4")
-        startText.style.opacity = "1";
+    setTimeout(() => {
+        timerStartContinue = setInterval(() => {
 
-    else
-        startText.style.opacity = "0.4";
+            startText.classList.remove("animate__animated", "animate__bounceIn");
+            if (startText.style.opacity == "0.4")
+                startText.style.opacity = "1";
 
-}, 100);
+            else
+                startText.style.opacity = "0.4";
+
+        }, 100);
+    }, 500);
+
+
+
+}, 2000);
+
+
+
+
+
 
 
 //! Mouse Image it's showed after close the choose character screen
