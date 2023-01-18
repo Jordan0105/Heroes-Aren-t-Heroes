@@ -85,7 +85,8 @@ body {
   color: white;
   padding-top: 65px;
   font-family: gameFont;
-  visibility: hidden;
+  --animate-delay: 1.5s;
+  // visibility: hidden;
 }
 
 //* Choose Character Screen
@@ -328,4 +329,13 @@ body {
 
 @keyframes push{
   50%  {transform: scale(0.95);}
+}
+
+@keyframes slideInDownAnimation {
+  0%{
+    top: 174px;
+  }
+  100%{
+    top: 100%;
+  }
 }

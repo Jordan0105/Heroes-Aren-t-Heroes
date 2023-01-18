@@ -13,8 +13,8 @@
 <body>
     
     <div id="startScreen" class="animate__animated animate__zoomInDown">
-        <img class="animate__animated animate__jackInTheBox" src="https://fontmeme.com/permalink/230109/2ae511d2efefb833b7210b9bb8e21983.png" alt="Game Title">
-        <h1 id="textStart" style="opacity: 1">Press Start to Continue</h1>
+        <img class="animate__animated animate__jackInTheBox animate__delay-2s" src="https://fontmeme.com/permalink/230109/2ae511d2efefb833b7210b9bb8e21983.png" alt="Game Title">
+        <h1 id="textStart" class="animate__animated animate__bounceIn animate__delay-1s" style="opacity: 1">Press Start to Continue</h1>
     </div>
 
     <div id="chooseCharacter" class="animate__animated animate__slideInDown">
@@ -47,7 +47,7 @@
     </div>
     
     <div id="main">
-        <div id="characterDiv">
+        <div id="characterDiv" class="animate__animated animate__lightSpeedInLeft">
             <div id="characterHitBox"></div>
             <img id="characterImg">
         </div>
@@ -61,10 +61,10 @@
     </div>
 
     <div id="gameOverScreen">
-        <div id="gameOver">
-            <h1 id="gameOverTitle">Game Over</h1>
-            <h2 id="infoGameOver"></h2>
-            <div id="buttonsGameOver" class="buttonsGameOver">
+        <div id="gameOver" >
+            <h1 id="gameOverTitle" class="animate__animated animate__swing">Game Over</h1>
+            <h2 id="infoGameOver" class="animate__animated animate__swing"></h2>
+            <div id="buttonsGameOver" class="buttonsGameOver animate__animated animate__flipInX animate__delay-1s">
                 <img class="gameOverOptions" src="../assets/Icons/Home.png" alt="Home Button">
                 <img id="playAgain" class="gameOverOptions" src="../assets/Icons/Play Again.png" alt="Play Again Button">
                 <img class="gameOverOptions" src="../assets/Icons/SuperHeroe_v2.png" alt="Choose Character Button">

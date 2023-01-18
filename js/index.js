@@ -345,7 +345,6 @@ const close_Home_Screen = () => {
     setTimeout(() => {
         startScreen.style.display = "none";
         startScreen.className = "";
-        startText.style.visibility = "hidden";
     }, 1500);
 
 }
@@ -360,13 +359,20 @@ const load_Gameplay_Screen_Event = () => {
     close_Choose_Character_Screen();
 
     //* Load the Gameplay Screen
-    setTimeout(() => {
+    // setTimeout(() => {
 
-        //Todo: Maybe we need to clear the classes of chooseCharacter and re-assign in every render
-        document.getElementById("chooseCharacter").className = "";
-        document.getElementById("chooseCharacter").style.display = "none";
-        load_Gameplay_Screen();
-    }, 1500);
+    // setTimeout(() => {
+    load_Gameplay_Screen();
+
+    // }, 200);
+
+    //!Error here
+
+
+    document.getElementById("chooseCharacter").style.animation = "";
+
+
+    // }, 800);
 
 
 
@@ -392,22 +398,18 @@ const load_Choose_Character_Screen_Event = (event) => {
 
 }
 
-//TODO: Create the loadHomeScreen Function
 
 const load_Home_Screen = () => {
 
-
     startScreen.style.display = "flex";
 
-
     setTimeout(() => {
-        startText.classList.add("animate__animated", "animate__bounceIn");
-        startText.style.visibility = "visible";
+        startText.classList.add("animate__animated", "animate__bounceIn", "animate__delay-1s");
 
         setTimeout(() => {
             timerStartContinue = setInterval(() => {
 
-                startText.classList.remove("animate__animated", "animate__bounceIn");
+                startText.className = "";
 
                 if (startText.style.opacity == "0.4")
                     startText.style.opacity = "1";
@@ -428,18 +430,22 @@ const load_Home_Screen = () => {
 
 const close_Choose_Character_Screen = () => {
 
+    document.getElementById("chooseCharacter").className = "";
 
-    document.getElementById("chooseCharacter").className = "slideInDownAnimation";
-
+    // document.getElementById("chooseCharacter").style.animation = "slideInDownAnimation 0.8s ease-in-out";
     //Delete the event listeners
 
     for (let i = 0; i < document.getElementsByClassName("characterBoxSpace").length; i++) {
         let element = document.getElementsByClassName("characterBoxSpace")[i];
+        let elementImage = document.getElementsByClassName("characterBoxSpace")[i].firstElementChild;
+        elementImage.className = "";
+
         let clone = element.cloneNode(true);
         element.parentNode.replaceChild(clone, element);
+
     }
 
-
+    document.getElementById("chooseCharacter").style.display = "none";
 }
 
 const show_Aura_Event = () => {
@@ -609,8 +615,6 @@ const close_Gameplay_Screen = () => {
 
 const load_Gameplay_Screen = () => {
 
-    //TODO: Make the cloud position
-
     document.getElementById("main").style.display = "block";
     document.getElementById("main").style.cursor = "none";
 
@@ -640,25 +644,24 @@ const startText = document.getElementById("textStart");
 
 
 setTimeout(() => {
-    startText.classList.add("animate__animated", "animate__bounceIn");
-    startText.style.visibility = "visible";
-
-    setTimeout(() => {
-        timerStartContinue = setInterval(() => {
-
-            startText.classList.remove("animate__animated", "animate__bounceIn");
-            if (startText.style.opacity == "0.4")
-                startText.style.opacity = "1";
-
-            else
-                startText.style.opacity = "0.4";
-
-        }, 100);
-    }, 500);
+    timerStartContinue = setInterval(() => {
 
 
+        //! Error when load home screen startText its visible for 1 sec
 
-}, 2000);
+        startText.className = "";
+        if (startText.style.opacity == "0.4")
+            startText.style.opacity = "1";
+
+        else
+            startText.style.opacity = "0.4";
+
+    }, 100);
+}, 2600);
+
+
+
+
 
 
 
@@ -706,6 +709,6 @@ const click_Screen_Buttons_Event = (event) => {
 
 }
 
-//Todo: Fix cloud problems interval
+
 
 
