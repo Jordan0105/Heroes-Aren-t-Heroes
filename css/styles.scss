@@ -1,3 +1,5 @@
+
+
 @font-face {
   font-family: gameFont;
   src: url("/assets/Fonts/gameFont.otf") format("opentype");
@@ -13,7 +15,6 @@ $fontGame: gameFont;
 
   top: 400px;
   left: 50px;
-
   transform: scaleX(1);
 }
 
@@ -33,6 +34,7 @@ $fontGame: gameFont;
 }
 
 body {
+  
   width: 100vw;
   height: 100vh;
   min-width: 1024px;

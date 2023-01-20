@@ -1,0 +1,31 @@
+{
+  "name": "superheroes_are_not_heroes",
+  "version": "1.0.0",
+  "description": "A basic web game programmed with JavaScript based on Dyno Chrome Game",
+  "source": "public/index.html",
+  "main": "js/modules/main.js",
+  "browserslist": "> 0.5%, last 2 versions, not dead",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "parcel",
+    "build": "parcel build"
+  },
+  "keywords": [
+    "\"web",
+    "game",
+    "\"game\"",
+    "\"simple",
+    "2d",
+    "game\""
+  ],
+  "author": "Jordan0105",
+  "license": "MIT",
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.8.2",
+    "eslint": "^8.32.0",
+    "parcel": "^2.8.2"
+  },
+  "dependencies": {
+    "animate.css": "^4.1.1"
+  }
+}
