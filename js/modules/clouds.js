@@ -6,11 +6,14 @@ let cloud_variables = {
 }
 const moveClouds = () => {
 
-    if (document.getElementById("cloudsDiv").style.left == "-230px") {
+    const cloudsDiv = document.getElementById("cloudsDiv");
+
+    if (cloudsDiv.style.left == "-230px") {
         //Delete elements
 
         clearInterval(cloudInterval1);
-        document.getElementById("cloudsDiv").remove();
+
+        cloudsDiv.remove();
         cloud_variables.cloudPosition = 1300;
         cloud_variables.existCloud = false;
 
@@ -19,14 +22,11 @@ const moveClouds = () => {
         cloud_variables.existCloud = true;
         cloud_variables.cloudPosition -= 3;//1
 
-        document.getElementById("cloudsDiv").style.left = cloud_variables.cloudPosition + "px";
+        cloudsDiv.style.left = cloud_variables.cloudPosition + "px";
     }
 
 }
 const create_Cloud_Function = () => {
-
-
-
 
 
     if (cloud_variables.existCloud == false) {

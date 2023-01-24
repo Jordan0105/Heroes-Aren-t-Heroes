@@ -7,7 +7,6 @@ let timerStartContinue = {
     timerStartContinue: null
 }
 
-
 const startText = document.getElementById("textStart");
 
 setTimeout(() => {
@@ -19,7 +18,6 @@ setTimeout(() => {
 setTimeout(() => {
 
     timerStartContinue.timerStartContinue = setInterval(() => {
-        //! Error when load home screen startText its visible for 1 sec
 
         startText.className = "";
         if (startText.style.opacity == "0.4")
@@ -34,3 +32,11 @@ setTimeout(() => {
 
 
 export { timerStartContinue, startText };
+
+//TODO: Close Moving Scenarios
+//TODO: Hover.js
+//TODO: When the score is greater than 100 the scenario will change
+//TODO: Debug the code and the intervals, event listener and go on.
+//TODO: Change mixins to extends
+//TODO: Close choose character animation has a problem with top;
+//TODO: Create an agreggator.js file to save all the imports and exports.

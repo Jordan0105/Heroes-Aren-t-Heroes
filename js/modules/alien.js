@@ -1,8 +1,9 @@
 import { gameplay_variables } from "./gameplay screen.js"
-let startMoving;
+let startMoving = 0;
 
 function getSpeed(gameplay_variables, alienSpeed) {
-    switch (gameplay_variables.score, alienSpeed) {
+
+    switch (gameplay_variables.score) {
         case 100:
             alienSpeed = 1.5;
             break;
@@ -34,6 +35,7 @@ function getSpeed(gameplay_variables, alienSpeed) {
             gameplay_variables.jumpSpeed = 3;
             break;
     }
+    return alienSpeed;
 }
 
 const alien_Start_Moving_Function = () => {
@@ -42,16 +44,17 @@ const alien_Start_Moving_Function = () => {
     const alienImg = document.getElementById("alienImg");
     let alienSpeed = 1;
     let position = 1320;
+
     startMoving = setInterval(alienMovementRight, 1);
 
     function alienMovementRight() {
-        alienImg.style.transform = "scaleX(1)";
 
-        getSpeed(gameplay_variables, alienSpeed);
+        alienImg.style.transform = "scaleX(1)";
+        alienSpeed = getSpeed(gameplay_variables, alienSpeed);
 
         if (position <= 0) {
             clearInterval(startMoving);
-            startMoving = setInterval(alienMovementLeft, 1);
+            startMoving = setInterval(alienMovementLeft, 1); //TODO: Change 1 to 100 and try it
         }
         else {
             position -= alienSpeed;
@@ -61,7 +64,7 @@ const alien_Start_Moving_Function = () => {
 
     function alienMovementLeft() {
 
-        getSpeed(gameplay_variables, alienSpeed);
+        alienSpeed = getSpeed(gameplay_variables, alienSpeed);
         alienImg.style.transform = "scaleX(-1)";
         if (position >= 1200) {
             clearInterval(startMoving);

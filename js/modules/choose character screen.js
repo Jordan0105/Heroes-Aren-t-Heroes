@@ -1,11 +1,14 @@
 import { close_Home_Screen } from "./start screen.js"
-import { load_Gameplay_Screen_Event } from "./gameplay screen.js";
+import { load_Gameplay_Screen_Event } from "./gameplay screen.js"
+import { playTheme } from "../modules/music.js"
 
-let opacityAuraSetinterval, opacity = 0;
-let characterImgSrc;
+
+let opacityAuraSetinterval = 0, opacity = 0;
+let characterImgSrc = "", firstTime = true;
 
 const load_Choose_Character_Screen_Event = (event) => {
 
+    playTheme();
     const allowedKeys = /^(Space|Enter|Backspace)$/;
 
     if (allowedKeys.test(event.code)) {
@@ -144,6 +147,22 @@ const clicked_Icon_Event = (i) => {
 const load_Choose_Character_Screen = () => {
 
     document.getElementById("chooseCharacter").style.display = "flex";
+    document.getElementById("chooseCharacter").style.cursor = `url("${require("../../assets/Icons/Selected_Icon.png")}"), auto`;
+
+    if (firstTime) {
+        document.getElementById("chooseCharacter").classList.add("animate__animated", "animate__slideInDown");
+        firstTime = false;
+
+    }
+    else {
+        for (let i = 0; i < document.getElementsByClassName("characterBoxSpace").length; i++) {
+            document.getElementsByClassName("characterBoxSpace")[i].classList.add("animate__animated", "animate__zoomIn");
+        }
+    }
+
+    for (let i = 0; i < document.getElementsByClassName("characterBoxSpace").length; i++) {
+        document.getElementsByClassName("characterBoxSpace")[i].firstElementChild.classList.add("animate__animated", "animate__tada");
+    }
 
     setTimeout(() => {
 
@@ -164,20 +183,28 @@ const close_Choose_Character_Screen = () => {
 
     document.getElementById("chooseCharacter").className = "";
 
-    // document.getElementById("chooseCharacter").style.animation = "slideInDownAnimation 0.8s ease-in-out";
+
+    document.getElementById("chooseCharacter").style.animation = "slideInDownAnimation 0.8s ease-in-out";
     //Delete the event listeners
 
     for (let i = 0; i < document.getElementsByClassName("characterBoxSpace").length; i++) {
+        document.getElementsByClassName("characterBoxSpace")[i].className = "characterBoxSpace";
+
         let element = document.getElementsByClassName("characterBoxSpace")[i];
         let elementImage = document.getElementsByClassName("characterBoxSpace")[i].firstElementChild;
         elementImage.className = "";
 
         let clone = element.cloneNode(true);
         element.parentNode.replaceChild(clone, element);
-
     }
 
-    document.getElementById("chooseCharacter").style.display = "none";
+    setTimeout(() => {
+
+        opacity = 0;
+        document.getElementById("aura").style.opacity = opacity;
+        document.getElementById("chooseCharacter").style.display = "none";
+
+    }, 800);
 }
 
 export { load_Choose_Character_Screen_Event, show_Aura_Event, disappear_Aura_Event, clicked_Icon_Event, load_Choose_Character_Screen, close_Choose_Character_Screen, characterImgSrc };

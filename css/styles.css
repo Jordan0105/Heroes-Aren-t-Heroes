@@ -8,12 +8,15 @@ body {
   min-width: 1024px;
   margin: 0;
   padding: 0;
+  background-image: linear-gradient(112.1deg, rgb(32, 38, 57) 11.4%, rgb(63, 76, 119) 70.2%);
   display: flex;
-  flex-wrap: nowrap;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  flex-wrap: nowrap;
   background-color: black;
   overflow: hidden;
+  user-select: none;
   cursor: default;
 }
 
@@ -21,30 +24,29 @@ body {
   display: none;
   width: 1280px;
   height: 601.33px;
-  border: 5px solid whitesmoke;
+  border: 5px solid white;
   position: absolute;
   overflow: hidden;
+  background-image: linear-gradient(172.6deg, rgb(21, 13, 15) 17.6%, rgb(84, 84, 84) 98.6%);
 }
 
 #startScreen {
+  display: none;
   width: 1280px;
   height: 601.33px;
+  border: 5px solid white;
+  position: absolute;
+  overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  border: 5px solid whitesmoke;
-  position: absolute;
-  overflow: hidden;
 }
-
 #startScreen img {
   width: 700px;
   height: 300px;
   animation-delay: 0.6s;
-  /* margin-top: -55px; */
 }
-
 #startScreen h1 {
   color: white;
   padding-top: 65px;
@@ -53,16 +55,16 @@ body {
 }
 
 #chooseCharacter {
+  display: none;
   width: 1281px;
   height: 601.33px;
+  border: 5px solid white;
+  position: absolute;
+  overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  border: 5px solid whitesmoke;
-  position: absolute;
-  overflow: hidden;
-  cursor: url("/assets/Icons/Selected_Icon.png"), auto;
   display: none;
 }
 #chooseCharacter #aura {
@@ -73,6 +75,10 @@ body {
   width: 305px;
   height: 245px;
   z-index: -1;
+}
+#chooseCharacter h1 {
+  color: white;
+  font-family: gameFont;
 }
 
 #selectedImageIcon {
@@ -87,16 +93,12 @@ body {
   grid-template-columns: auto auto auto;
 }
 
-#chooseCharacter h1 {
-  color: white;
-  font-family: gameFont;
-}
-
 .characterBoxSpace {
   border: 1px solid white;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   margin-top: 0px;
   width: 425.66px;
   height: 263.66px;
@@ -132,6 +134,17 @@ body {
   top: 400px;
   left: 50px;
   transform: scaleX(1);
+  z-index: 1;
+}
+#characterDiv #characterImg {
+  width: 181px;
+  height: 152px;
+}
+#characterDiv #characterHitBox {
+  position: absolute;
+  width: 94px;
+  height: 150px;
+  left: 35px;
 }
 
 #alienDiv {
@@ -139,46 +152,36 @@ body {
   width: min-content;
   height: auto;
   top: 475px;
-  left: 94px;
+  left: 1290px;
+  z-index: 1;
 }
-
-#characterImg {
-  width: 181px;
-  height: 152px;
-}
-
-#alienImg {
+#alienDiv #alienImg {
   display: block;
-  /* min-width: 74px;
-    max-height: 200px; */
   width: 80px;
   height: 80px;
 }
-
-#characterHitBox {
-  position: absolute;
-  width: 94px;
-  /* min-width: 75px; */
-  height: 150px;
-  left: 35px;
-  border: 1px solid white;
-}
-
-#alienHitBox {
+#alienDiv #alienHitBox {
   position: absolute;
   width: 46px;
-  /* min-width: 37px; */
   height: 76px;
   left: 17px;
 }
 
-#gameOverScreen {
-  display: none;
-  width: 1280px;
-  height: 601.33px;
-  border: 5px solid whitesmoke;
+#cloudsDiv {
   position: absolute;
-  overflow: hidden;
+  left: 50px;
+  width: auto;
+}
+#cloudsDiv #cloudHitBox {
+  position: absolute;
+  width: 180px;
+  top: 40px;
+  height: 60px;
+  left: 12px;
+}
+#cloudsDiv #cloudImg {
+  display: block;
+  width: 200px;
 }
 
 #scoreDiv {
@@ -186,6 +189,16 @@ body {
   color: white;
   left: 3vw;
   font-family: gameFont;
+  z-index: 1;
+}
+
+#gameOverScreen {
+  display: none;
+  width: 1280px;
+  height: 601.33px;
+  border: 5px solid white;
+  position: absolute;
+  overflow: hidden;
 }
 
 #gameOver {
@@ -200,29 +213,6 @@ body {
 #gameOver #infoGameOver {
   font-size: 30px;
   letter-spacing: 0px;
-}
-
-#cloudsDiv {
-  /* visibility: hidden; */
-  position: absolute;
-  left: 50px;
-  width: auto;
-}
-
-#cloudHitBox {
-  position: absolute;
-  width: 180px;
-  /* min-width: 37px; */
-  top: 40px;
-  height: 60px;
-  left: 12px;
-  border: 1px solid white;
-}
-
-#cloudImg {
-  display: block;
-  width: 200px;
-  /* min-width: 150px; */
 }
 
 #buttonsGameOver {
@@ -252,6 +242,39 @@ body {
   animation: pulse 0.3s infinite linear alternate;
 }
 
+#carrousselContainer {
+  display: none;
+  width: 1280px;
+  height: 601.33px;
+  border: 0px;
+  position: absolute;
+  overflow: hidden;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: row;
+  overflow: visible;
+  border: 0px;
+  z-index: 0;
+  left: 0px;
+}
+#carrousselContainer img {
+  min-width: 1279px;
+  max-width: 1230px;
+  min-height: 598px;
+  max-height: 586px;
+}
+#carrousselContainer .wormhole {
+  position: absolute;
+  max-width: 100px;
+  min-width: 323px;
+  max-height: 134px;
+  min-height: 168px;
+  left: -170px;
+  z-index: 20;
+  filter: blur(2px);
+}
+
 @keyframes pulse {
   to {
     transform: scale(1.1);
@@ -272,7 +295,7 @@ body {
 }
 @keyframes slideInDownAnimation {
   0% {
-    top: 174px;
+    top: 50%;
   }
   100% {
     top: 100%;

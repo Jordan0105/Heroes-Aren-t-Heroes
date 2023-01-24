@@ -1,36 +1,31 @@
+//* Variables
 
+$fontGame: gameFont;
+$border-screen: 5px solid white;
+
+//* Mixins
+
+@mixin screen_style($width: 1280px, $borderDefault: 0px){
+  display: none;
+  width: $width;
+  height: 601.33px; 
+  border: $borderDefault;
+  position: absolute;
+  overflow: hidden;
+  
+  //TODO: Insert a background image gradient
+}
+
+@mixin flexbox_style($justify: center, $direction: column){
+  display: flex;
+  justify-content: $justify;
+  align-items: center;
+  flex-direction: $direction;
+}
 
 @font-face {
   font-family: gameFont;
   src: url("/assets/Fonts/gameFont.otf") format("opentype");
-}
-
-$fontGame: gameFont;
-
-//! mixins
-
-@mixin characterDiv {
-  position: absolute;
-  width: min-content;
-
-  top: 400px;
-  left: 50px;
-  transform: scaleX(1);
-}
-
-@mixin characterImg {
-  width: 181px;
-  height: 152px;
-}
-
-@mixin characterHitBox {
-  position: absolute;
-  width: 94px;
-  /* min-width: 75px; */
-  height: 150px;
-  left: 35px;
-  border: 1px solid white;
-
 }
 
 body {
@@ -40,74 +35,61 @@ body {
   min-width: 1024px;
   margin: 0;
   padding: 0;
-  display: flex;
+
+  background-image: linear-gradient( 112.1deg,  rgba(32,38,57,1) 11.4%, rgba(63,76,119,1) 70.2% );
+
+  @include flexbox_style();
+ 
   flex-wrap: nowrap;
-  align-items: center;
-  justify-content: center;
+
   background-color: black;
   overflow: hidden;
+  user-select: none;
 
   cursor: default;
 }
 
 #main {
-  display: none;
-  width: 1280px;
-  height: 601.33px;
-  border: 5px solid whitesmoke;
-  position: absolute;
-  overflow: hidden;
+
+  @include screen_style($borderDefault: $border-screen);
+  background-image: linear-gradient( 172.6deg,  rgba(21,13,15,1) 17.6%, rgba(84,84,84,1) 98.6% );
+ 
+  // background-position: center;
+  // background-repeat: no-repeat;
+  // background-size: cover;
+ 
+  // filter:  blur(3px);
+  // -webkit-filter: blur(3px);
 }
 
 //* Start Screen
 
 #startScreen {
-  width: 1280px;
-  height: 601.33px;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  @include screen_style($borderDefault: $border-screen);
+  @include flexbox_style(); 
 
-  border: 5px solid whitesmoke;
-  position: absolute;
-  overflow: hidden;
-
+  img {
+    width: 700px;
+    height: 300px;
+    animation-delay: 0.6s;
+  }
+  h1 {
+    color: white;
+    padding-top: 65px;
+    font-family: gameFont;
+    --animate-delay: 1.5s;
+  }
 }
 
-#startScreen img {
-  width: 700px;
-  height: 300px;
-  animation-delay: 0.6s;
-  /* margin-top: -55px; */
-}
-
-#startScreen h1 {
-  color: white;
-  padding-top: 65px;
-  font-family: gameFont;
-  --animate-delay: 1.5s;
-  // visibility: hidden;
-}
 
 //* Choose Character Screen
 
-//TODO: Create  a mixin for chooseCharacter and main
 #chooseCharacter {
-    
-  width: 1281px;
-  height: 601.33px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-
-  border: 5px solid whitesmoke;
-  position: absolute;
-  overflow: hidden;
-  cursor: url("/assets/Icons/Selected_Icon.png"), auto;
+ 
+  @include screen_style(1281px, $border-screen);
+  @include flexbox_style();
+  display: none;
 
   #aura {
     position: absolute;
@@ -118,8 +100,11 @@ body {
     height: 245px;
     z-index: -1;
   }
+  h1 {
+    color: white;
+    font-family: gameFont;
+  }
 
-  display: none;
 }
 
 #selectedImageIcon {
@@ -134,18 +119,12 @@ body {
   grid-template-columns: auto auto auto;
 }
 
-#chooseCharacter h1 {
-  color: white;
-  font-family: gameFont;
-}
-
 .characterBoxSpace {
 
   border: 1px solid white;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include flexbox_style;
+
   margin-top: 0px;
   width: 425.66px;
   height: 263.66px;
@@ -180,66 +159,100 @@ body {
   position: absolute;
 }
 
-//TODO: This probably will be obsolete soon
+//* Character 
+
+//TODO: Mixin here
 
 #characterDiv {
-  @include characterDiv;
+  position: absolute;
+  width: min-content;
+
+  top: 400px;
+  left: 50px;
+  transform: scaleX(1);
+  z-index: 1;
+
+  #characterImg {
+    width: 181px;
+    height: 152px;
+  }
+  #characterHitBox {
+    position: absolute;
+    width: 94px;
+    height: 150px;
+    left: 35px;
+  }
+  
 }
+
+//* Alien
 
 #alienDiv {
   position: absolute;
   width: min-content;
   height: auto;
   top: 475px;
-  left: 94px;
+  left: 1290px;
+  z-index: 1;
+
+  #alienImg {
+    display: block;
+    width: 80px;
+    height: 80px;
+  }
+  #alienHitBox {
+    position: absolute;
+    width: 46px;
+    height: 76px;
+    left: 17px;
+  }
+  
 }
 
-#characterImg {
-  width: 181px;
-  height: 152px;
-}
+//* Clouds 
 
-#alienImg {
-  display: block;
-  /* min-width: 74px;
-    max-height: 200px; */
-  width: 80px;
-  height: 80px;
-}
-
-//* HitBoxCharacter
-
-#characterHitBox {
-  @include characterHitBox;
-}
-
-#alienHitBox {
+#cloudsDiv {
   position: absolute;
-  width: 46px;
-  /* min-width: 37px; */
-  height: 76px;
-  left: 17px;
+  left: 50px;
+  width: auto;
+
+  #cloudHitBox {
+    position: absolute;
+    width: 180px;
+    top: 40px;
+    height: 60px;
+    left: 12px;
+  }
+  
+  #cloudImg {
+    display: block;
+    width: 200px;
+  }
+
 }
 
-//* Score Screen and Game Over
-
-#gameOverScreen {
-  display: none;
-  width: 1280px;
-  height: 601.33px;
-  border: 5px solid whitesmoke;
-  position: absolute;
-  overflow: hidden;
-}
+//* Score
 
 #scoreDiv {
   position: absolute;
   color: white;
   left: 3vw;
   font-family: $fontGame;
+  z-index: 1;
+}
+
+
+
+//* Game Over 
+
+#gameOverScreen {
+ 
+@include screen_style($borderDefault: $border-screen);
+  
 }
 
 #gameOver {
+
   color: white;
   position: absolute;
   left: 50%;
@@ -255,37 +268,12 @@ body {
   }
 }
 
-//* Clouds Styles
-
-#cloudsDiv {
-  /* visibility: hidden; */
-  position: absolute;
-  left: 50px;
-  width: auto;
-}
-
-#cloudHitBox {
-  position: absolute;
-  width: 180px;
-  /* min-width: 37px; */
-  top: 40px;
-  height: 60px;
-  left: 12px;
-  border: 1px solid white;
-}
-
-#cloudImg {
-  display: block;
-  width: 200px;
-  /* min-width: 150px; */
-}
-
 #buttonsGameOver {
+
   width: 400px;
-  //   border: 1px solid white;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+
+  @include flexbox_style(space-between, null);
+
   margin: 105px 0px 0px 40px;
 
   .gameOverOptions {
@@ -310,15 +298,56 @@ body {
   animation: pulse 0.3s infinite linear alternate;
 }
 
-//Animationsssssssssss
+
+//* Scenarios
+
+
+#carrousselContainer {
+
+  @include screen_style;
+  @include flexbox_style(flex-start, row);
+
+  overflow: visible;
+
+  border: 0px;
+
+  z-index: 0;
+  left: 0px;
+
+  img {
+    min-width: 1279px;
+    max-width: 1230px;
+    min-height: 598px;
+    max-height: 586px;
+    //filter: blur(5px);
+  }
+
+  .wormhole {
+    position: absolute;
+    max-width: 100px;
+    min-width: 323px;
+    max-height: 134px;
+    min-height: 168px;
+    left: -170px;
+    z-index: 20;
+    filter: blur(2px);
+  
+  }
+}
+
+
+
+
+
+//* Animations
 
 
 @keyframes pulse {
+
   to {
     transform: scale(1.1);
   }
-  // 25%  {transform: scale(0.9);}
-  // 75%  {transform: scale(1.1);}
+
 }
 
 @keyframes spin {
@@ -335,7 +364,7 @@ body {
 
 @keyframes slideInDownAnimation {
   0%{
-    top: 174px;
+    top: 50%;
   }
   100%{
     top: 100%;

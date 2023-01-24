@@ -5,12 +5,26 @@ import { load_Choose_Character_Screen } from "./choose character screen.js";
 
 const load_Show_Score_Screen = () => {
 
-    let highScore;
+    let highScore = 0;
 
-    document.getElementById("gameOverScreen").style.display = "block";
-    document.getElementById("gameOverScreen").style.cursor = "default";
+    const gameOverScreen = document.getElementById("gameOverScreen");
 
-    clickButtonScore();
+    gameOverScreen.style.display = "block";
+    gameOverScreen.style.cursor = `url("${require("../../assets/Icons/Gloves_Icon.png")}"), auto`;
+
+    for (let i = 0; i < document.getElementsByClassName("gameOverTextInfo").length; i++) {
+        document.getElementsByClassName("gameOverTextInfo")[i].className = "gameOverTextInfo animate__animated animate__swing";
+
+    }
+
+    setTimeout(() => {
+        for (let i = 0; i < document.getElementsByClassName("gameOverTextInfo").length; i++) {
+            document.getElementsByClassName("gameOverTextInfo")[i].className = "gameOverTextInfo";
+        }
+        clickButtonScore();
+
+    }, 1500);
+
     const infoGameOver = document.getElementById("infoGameOver");
 
     if (sessionStorage.getItem("highScore") === null) {
@@ -47,9 +61,25 @@ const clickButtonScore = () => {
 
 }
 
+const exit_frames_animations = (function_received) => {
+
+    const gameOver = document.getElementById("gameOver");
+    gameOver.classList.add("animate__animated", "animate__flipOutX");
+
+    setTimeout(() => {
+
+        document.getElementById("gameOverScreen").style.display = "none";
+        document.getElementById("gameOver").className = "";
+
+        function_received();
+
+    }, 500);
+};
+
+
 const click_Screen_Buttons_Event = (event) => {
 
-    let clickedImage = event.target.alt;
+    const clickedImage = event.target.alt;
 
     for (let i = 0; i < document.getElementsByClassName("gameOverOptions").length; i++) {
         document.getElementsByClassName("gameOverOptions")[i].removeEventListener("click", click_Screen_Buttons_Event);
@@ -57,17 +87,16 @@ const click_Screen_Buttons_Event = (event) => {
 
     if (clickedImage === "Home Button") {
 
-        load_Home_Screen();
+        exit_frames_animations(load_Home_Screen);
 
     }
     else if (clickedImage === "Play Again Button") {
-        load_Gameplay_Screen();
+        exit_frames_animations(load_Gameplay_Screen);
     }
     else {
-        load_Choose_Character_Screen();
+        exit_frames_animations(load_Choose_Character_Screen);
     }
 
-    document.getElementById("gameOverScreen").style.display = "none";
 
 }
 

@@ -2,7 +2,7 @@ import { collitionFunction, checkPosition } from "./collitions.js"
 import { close_Choose_Character_Screen, characterImgSrc } from "./choose character screen.js";
 import { alien_Start_Moving_Function, startMoving } from "./alien.js"
 import { create_Cloud_Function, cloudInterval1, cloud_variables } from "./clouds.js"
-
+import { startMovingScenarios } from "./Scenario.js";
 let gameplay_variables = {
     score: 0,
     jumpSpeed: 10,
@@ -98,8 +98,9 @@ const moveFunction = (e) => {
 
 const load_Gameplay_Screen = () => {
 
-    document.getElementById("main").style.display = "block";
-    document.getElementById("main").style.cursor = "none";
+    const main = document.getElementById("main");
+    main.style.display = "block";
+    main.style.cursor = "none";
 
     document.getElementById("characterImg").src = characterImgSrc;
     document.getElementById("characterDiv").style.left = "50px";
@@ -110,7 +111,7 @@ const load_Gameplay_Screen = () => {
     }, 100);
 
     alien_Start_Moving_Function();
-
+    startMovingScenarios();
     collitionFunction();
     createCloudsInterval = setInterval(create_Cloud_Function, 1000); //1000
 
@@ -127,27 +128,24 @@ const load_Gameplay_Screen_Event = () => {
     close_Choose_Character_Screen();
 
     //* Load the Gameplay Screen
-    // setTimeout(() => {
-
-    // setTimeout(() => {
-    load_Gameplay_Screen();
-
-    // }, 200);
-
-    //!Error here
 
 
-    document.getElementById("chooseCharacter").style.animation = "";
+    setTimeout(() => {
+        load_Gameplay_Screen();
+        document.getElementById("chooseCharacter").style.animation = "";
 
-
-    // }, 800);
-
+    }, 1000);
 
 }
 const close_Gameplay_Screen = () => {
 
+
+    // document.getElementById("main").classList.add("")
+
     document.getElementById("main").style.display = "none";
-    document.getElementById("cloudsDiv").remove();
+
+    if (cloud_variables.existCloud === true)
+        document.getElementById("cloudsDiv").remove();
 
 
 

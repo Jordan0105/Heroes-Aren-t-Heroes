@@ -6,14 +6,16 @@ const startScreen = document.getElementById("startScreen");
 const load_Home_Screen = () => {
 
     startScreen.style.display = "flex";
+    startText.style.visibility = "visible";
+
+    startText.classList.add("animate__animated", "animate__bounceIn", "animate__delay-1s");
+
 
     setTimeout(() => {
 
-        startText.classList.add("animate__animated", "animate__bounceIn", "animate__delay-1s");
-
         setTimeout(() => {
+            startText.className = "";
             timerStartContinue.timerStartContinue = setInterval(() => {
-                startText.className = "";
 
                 if (startText.style.opacity == "0.4")
                     startText.style.opacity = "1";
@@ -35,6 +37,8 @@ const load_Home_Screen = () => {
 const close_Home_Screen = () => {
 
     clearInterval(timerStartContinue.timerStartContinue);
+    startText.className = "";
+    startText.style.visibility = "hidden";
 
     startScreen.classList.add("animate__animated", "animate__zoomOutDown");
 
