@@ -1,8 +1,8 @@
-let cloudInterval1;
 
 let cloud_variables = {
     existCloud: false,
-    cloudPosition: 1300
+    cloudPosition: 1300,
+    cloudInterval: 0
 }
 const moveClouds = () => {
 
@@ -11,7 +11,7 @@ const moveClouds = () => {
     if (cloudsDiv.style.left == "-230px") {
         //Delete elements
 
-        clearInterval(cloudInterval1);
+        clearInterval(cloud_variables.cloudInterval);
 
         cloudsDiv.remove();
         cloud_variables.cloudPosition = 1300;
@@ -43,7 +43,9 @@ const create_Cloud_Function = () => {
         document.getElementById("main").appendChild(cloudsDiv);
         cloudsDiv.appendChild(hitBoxCloud);
         cloudsDiv.appendChild(cloudImg);
-        cloudImg.src = require("../../assets/Cloud.png");
+        // cloudImg.src = require("../../assets/Cloud.png");
+        cloudImg.src = "../../assets/Cloud.png";
+
         cloudImg.alt = "Cloud";
 
         document.getElementById("cloudsDiv").style.top = random_Top_Cloud() + "px";
@@ -51,7 +53,7 @@ const create_Cloud_Function = () => {
 
         cloud_variables.existCloud = true;
 
-        cloudInterval1 = setInterval(moveClouds, 10); //10
+        cloud_variables.cloudInterval = setInterval(moveClouds, 10); //10
 
     }
 }
@@ -62,4 +64,4 @@ const random_Top_Cloud = () => {
     return heightPx[height];
 }
 
-export { cloud_variables, cloudInterval1, create_Cloud_Function }
+export { cloud_variables, create_Cloud_Function }

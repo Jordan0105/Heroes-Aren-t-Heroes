@@ -1,6 +1,5 @@
 #vscode will be ignored
 .vscode
 node_modules/
-dist/
-.parcel-cache
 .eslintrc.json
+rollup.config.js

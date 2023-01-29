@@ -11,14 +11,20 @@
 </head>
 
 <body>
-  <!-- <audio id="audio" src="../assets/Audio/Start Screen/Flower Garden Theme.mp3"></audio> -->
+
+  <div id="clickAnywhereDiv">
+    <h1 id="clickAnywhereText" class="animate__animated animate__bounceIn animate__delay-1s pulseTextOpacity" style="opacity: 1" style="opacity: 1;">
+    Click Anywhere To Continue
+    </h1>
+  </div>
+
     <div id="startScreen" class="animate__animated animate__zoomInDown">
         <img class="animate__animated animate__jackInTheBox animate__delay-2s" src="../assets/Icons/Title_Game.png" alt="Game Title" draggable="false">
-        <h1 id="textStart" class="animate__animated animate__bounceIn animate__delay-1s" style="opacity: 1">Press Start to Continue</h1>
+        <h1 id="textStart" class="animate__animated animate__bounceIn animate__delay-1s pulseTextOpacity" style="opacity: 1">Press Start to Continue</h1>
     </div>
 
     <div id="chooseCharacter">
-        <img id="selectedImageIcon" alt="Selected Icon" src="/assets/Icons/Selected_Icon.png" draggable="false">
+        <img id="selectedImageIcon" alt="Selected Icon" src="../assets/Icons/Selected_Icon.png" draggable="false">
 
         <div id="characterContainer">
             <div class="characterBoxSpace">
@@ -43,7 +49,7 @@
 
 
         <h1 id="chooseCharacterText">Choose your Character</h1>
-        <img id="aura" src="/assets/Icons/Aura.png" alt="Aura" style="opacity: 0;" draggable="false">
+        <img id="aura" src="../assets/Icons/Aura.png" alt="Aura" style="opacity: 0;" draggable="false">
     </div>
     
     <div id="main">
@@ -167,8 +173,8 @@
         </div>
     </div>
   
-    <script type="module" src="../js/index.js"></script>
-
+    <script type="module" src="../bundle/bundle.js"></script>
+  
 
 </body>
 

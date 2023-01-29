@@ -1,8 +1,10 @@
 import { collitionFunction, checkPosition } from "./collitions.js"
 import { close_Choose_Character_Screen, characterImgSrc } from "./choose character screen.js";
 import { alien_Start_Moving_Function, startMoving } from "./alien.js"
-import { create_Cloud_Function, cloudInterval1, cloud_variables } from "./clouds.js"
-import { startMovingScenarios } from "./Scenario.js";
+import { create_Cloud_Function, cloud_variables } from "./clouds.js"
+import { startMovingScenarios } from "./scenario.js";
+import { stop_music, play_music, play_Sound_Sprite } from "./music.js";
+
 let gameplay_variables = {
     score: 0,
     jumpSpeed: 10,
@@ -47,6 +49,7 @@ const moveFunction = (e) => {
 
 
         if (gameplay_variables.timerJump === null) {
+            play_Sound_Sprite("../../assets/Audio/SFX Audio/Jump SFX.mp3");
             gameplay_variables.positionJump = 400;
             gameplay_variables.timerJump = setInterval(() => jumpAnimation(characterDiv), gameplay_variables.jumpSpeed);
         }
@@ -100,7 +103,7 @@ const load_Gameplay_Screen = () => {
 
     const main = document.getElementById("main");
     main.style.display = "block";
-    main.style.cursor = "none";
+
 
     document.getElementById("characterImg").src = characterImgSrc;
     document.getElementById("characterDiv").style.left = "50px";
@@ -120,13 +123,28 @@ const load_Gameplay_Screen = () => {
 
 const load_Gameplay_Screen_Event = () => {
 
+    play_Sound_Sprite("../../assets/Audio/SFX Audio/Select Character v2 SFX.mp3");
+    stop_music();
+
     window.removeEventListener("keydown", load_Gameplay_Screen_Event);
+    const play_List_Gameplay = [
+
+        "../../assets/Audio/Gameplay Screen/Dr Mario Fever Theme.mp3",
+        "../../assets/Audio/Gameplay Screen/Gourmet Race Theme.mp3",
+        "../../assets/Audio/Gameplay Screen/Lost Woods Theme.mp3",
+        "../../assets/Audio/Gameplay Screen/Undertale OST 100 Theme.mp3"
+
+    ];
+
+
+
 
 
     //* Delete the previous screen
 
     close_Choose_Character_Screen();
 
+    play_music(play_List_Gameplay);
     //* Load the Gameplay Screen
 
 
@@ -139,7 +157,7 @@ const load_Gameplay_Screen_Event = () => {
 }
 const close_Gameplay_Screen = () => {
 
-
+    stop_music();
     // document.getElementById("main").classList.add("")
 
     document.getElementById("main").style.display = "none";
@@ -166,7 +184,7 @@ const close_Gameplay_Screen = () => {
     clearInterval(scoreTimer);
     clearInterval(createCloudsInterval);
 
-    clearInterval(cloudInterval1);
+    clearInterval(cloud_variables.cloudInterval);
 
     window.removeEventListener("keydown", moveFunction);
 

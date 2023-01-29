@@ -2,14 +2,16 @@
   "name": "superheroes_are_not_heroes",
   "version": "1.0.0",
   "description": "A basic web game programmed with JavaScript based on Dyno Chrome Game",
+  "type": "module",
   "source": "public/index.html",
-  "main": "js/modules/main.js",
+  "main": "js/index.js",
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "parcel",
-    "build": "parcel build",
-    "watch": "sass --watch ./css/styles.scss:./css/styles.css"
+    "start": "",
+    "build": "",
+    "watch": "sass --watch ./css/styles.scss:./css/styles.css",
+    "watchBundle": "rollup -c -w"
   },
   "keywords": [
     "\"web",
@@ -22,13 +24,15 @@
   "author": "Jordan0105",
   "license": "MIT",
   "devDependencies": {
-    "@parcel/transformer-sass": "^2.8.2",
     "eslint": "^8.32.0",
-    "parcel": "^2.8.2",
+    "rollup": "^3.10.1",
+    "rollup-plugin-node-resolve": "^5.2.0",
     "sass": "^1.57.1"
   },
   "dependencies": {
     "animate.css": "^4.1.1",
-    "howler": "^2.2.3"
+    "howler": "^2.2.3",
+    "http-server": "^14.1.1",
+    "rollup-plugin-watch": "^1.0.2"
   }
 }

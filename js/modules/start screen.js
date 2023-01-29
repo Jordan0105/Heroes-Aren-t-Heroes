@@ -1,33 +1,37 @@
 import { load_Choose_Character_Screen_Event } from "./choose character screen.js";
-import { timerStartContinue, startText } from "../index.js";
-
+import { pulseStartText, close_Pulse_Start_Text } from "./click anywhere.js";
+import { play_music, stop_music, play_Sound_Sprite } from "./music.js";
 const startScreen = document.getElementById("startScreen");
+
 
 const load_Home_Screen = () => {
 
+
+    play_Sound_Sprite("../../assets/Audio/SFX Audio/Click v3 SFX.wav");
+    window.removeEventListener("click", load_Home_Screen);
+
+    const play_List_Home = [
+
+        "../../assets/Audio/Start Screen/Animal Crossing Main Theme.mp3",
+        "../../assets/Audio/Start Screen/Flower Garden Theme.mp3",
+        "../../assets/Audio/Start Screen/Jump Up, Super Star Theme.mp3",
+        "../../assets/Audio/Start Screen/Super Mario Bros Melee Theme.mp3"
+
+    ];
+
+    play_music(play_List_Home);
+
+    close_Pulse_Start_Text();
+
+    document.getElementById("clickAnywhereDiv").style.display = "none";
+
+    const textStart = document.getElementById("textStart");
+
     startScreen.style.display = "flex";
-    startText.style.visibility = "visible";
+    textStart.style.visibility = "visible";
 
-    startText.classList.add("animate__animated", "animate__bounceIn", "animate__delay-1s");
-
-
-    setTimeout(() => {
-
-        setTimeout(() => {
-            startText.className = "";
-            timerStartContinue.timerStartContinue = setInterval(() => {
-
-                if (startText.style.opacity == "0.4")
-                    startText.style.opacity = "1";
-
-                else
-                    startText.style.opacity = "0.4";
-
-            }, 100);
-        }, 500);
-
-
-    }, 1500);
+    textStart.classList.add("animate__animated", "animate__bounceIn", "animate__delay-1s");
+    pulseStartText(textStart, 1500);
 
     setTimeout(() => {
         window.addEventListener("keydown", load_Choose_Character_Screen_Event);
@@ -36,9 +40,13 @@ const load_Home_Screen = () => {
 
 const close_Home_Screen = () => {
 
-    clearInterval(timerStartContinue.timerStartContinue);
-    startText.className = "";
-    startText.style.visibility = "hidden";
+    stop_music();
+    const textStart = document.getElementById("textStart");
+
+    close_Pulse_Start_Text();
+
+    textStart.className = "";
+    textStart.style.visibility = "hidden";
 
     startScreen.classList.add("animate__animated", "animate__zoomOutDown");
 
@@ -49,4 +57,6 @@ const close_Home_Screen = () => {
 
 }
 
-export { load_Home_Screen, close_Home_Screen };
+
+
+export { load_Home_Screen, close_Home_Screen, pulseStartText };

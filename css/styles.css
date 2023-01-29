@@ -1,6 +1,7 @@
+@import "../node_modules/animate.css/animate.css";
 @font-face {
   font-family: gameFont;
-  src: url("/assets/Fonts/gameFont.otf") format("opentype");
+  src: url("../assets/Fonts/gameFont.otf") format("opentype");
 }
 body {
   width: 100vw;
@@ -20,6 +21,20 @@ body {
   cursor: default;
 }
 
+.pulseTextOpacity, #startScreen h1, #clickAnywhereDiv {
+  color: white;
+  padding-top: 65px;
+  font-family: gameFont;
+  --animate-delay: 1.5s;
+}
+
+#clickAnywhereDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
 #main {
   display: none;
   width: 1280px;
@@ -28,6 +43,7 @@ body {
   position: absolute;
   overflow: hidden;
   background-image: linear-gradient(172.6deg, rgb(21, 13, 15) 17.6%, rgb(84, 84, 84) 98.6%);
+  cursor: none;
 }
 
 #startScreen {
@@ -41,19 +57,14 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  display: none;
+  cursor: none;
 }
 #startScreen img {
   width: 700px;
   height: 300px;
   animation-delay: 0.6s;
 }
-#startScreen h1 {
-  color: white;
-  padding-top: 65px;
-  font-family: gameFont;
-  --animate-delay: 1.5s;
-}
-
 #chooseCharacter {
   display: none;
   width: 1281px;
@@ -263,6 +274,7 @@ body {
   max-width: 1230px;
   min-height: 598px;
   max-height: 586px;
+  filter: blur(5px);
 }
 #carrousselContainer .wormhole {
   position: absolute;
@@ -272,7 +284,6 @@ body {
   min-height: 168px;
   left: -170px;
   z-index: 20;
-  filter: blur(2px);
 }
 
 @keyframes pulse {
@@ -294,11 +305,12 @@ body {
   }
 }
 @keyframes slideInDownAnimation {
-  0% {
-    top: 50%;
+  from {
+    transform: translate3d(0, 0, 0);
   }
-  100% {
-    top: 100%;
+  to {
+    visibility: hidden;
+    transform: translate3d(0, 150%, 0);
   }
 }
 

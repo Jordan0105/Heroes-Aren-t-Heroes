@@ -1,9 +1,12 @@
+@import "../node_modules/animate.css/animate.css";
+
+
 //* Variables
 
 $fontGame: gameFont;
 $border-screen: 5px solid white;
 
-//* Mixins
+//* Mixins & Extends
 
 @mixin screen_style($width: 1280px, $borderDefault: 0px){
   display: none;
@@ -25,8 +28,9 @@ $border-screen: 5px solid white;
 
 @font-face {
   font-family: gameFont;
-  src: url("/assets/Fonts/gameFont.otf") format("opentype");
+  src: url("../assets/Fonts/gameFont.otf") format("opentype");
 }
+
 
 body {
   
@@ -49,11 +53,23 @@ body {
   cursor: default;
 }
 
+.pulseTextOpacity{
+  color: white;
+  padding-top: 65px;
+  font-family: gameFont;
+  --animate-delay: 1.5s;
+}
+
+#clickAnywhereDiv {
+  @include flexbox_style;
+  @extend .pulseTextOpacity;
+}
+
 #main {
 
   @include screen_style($borderDefault: $border-screen);
   background-image: linear-gradient( 172.6deg,  rgba(21,13,15,1) 17.6%, rgba(84,84,84,1) 98.6% );
- 
+ cursor: none;
   // background-position: center;
   // background-repeat: no-repeat;
   // background-size: cover;
@@ -68,6 +84,8 @@ body {
 
   @include screen_style($borderDefault: $border-screen);
   @include flexbox_style(); 
+  display: none;
+  cursor: none;
 
   img {
     width: 700px;
@@ -75,10 +93,7 @@ body {
     animation-delay: 0.6s;
   }
   h1 {
-    color: white;
-    padding-top: 65px;
-    font-family: gameFont;
-    --animate-delay: 1.5s;
+    @extend .pulseTextOpacity;  
   }
 }
 
@@ -162,6 +177,7 @@ body {
 //* Character 
 
 //TODO: Mixin here
+//TODO: Divide every screen on differents stylesheet and use @use to load the stylesheet in styles.scss
 
 #characterDiv {
   position: absolute;
@@ -319,7 +335,7 @@ body {
     max-width: 1230px;
     min-height: 598px;
     max-height: 586px;
-    //filter: blur(5px);
+    filter: blur(5px);
   }
 
   .wormhole {
@@ -330,7 +346,7 @@ body {
     min-height: 168px;
     left: -170px;
     z-index: 20;
-    filter: blur(2px);
+    // filter: blur(2px);
   
   }
 }
@@ -363,10 +379,12 @@ body {
 }
 
 @keyframes slideInDownAnimation {
-  0%{
-    top: 50%;
+  from {
+    transform: translate3d(0, 0, 0);
   }
-  100%{
-    top: 100%;
+
+  to {
+    visibility: hidden;
+    transform: translate3d(0, 150%, 0);
   }
 }
