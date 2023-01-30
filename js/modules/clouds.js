@@ -28,7 +28,6 @@ const moveClouds = () => {
 }
 const create_Cloud_Function = () => {
 
-
     if (cloud_variables.existCloud == false) {
 
         const cloudsDiv = document.createElement("div");

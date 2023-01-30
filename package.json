@@ -9,9 +9,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "",
-    "build": "",
-    "watch": "sass --watch ./css/styles.scss:./css/styles.css",
-    "watchBundle": "rollup -c -w"
+    "build": "rollup -c",
+    "watch": "sass --watch ./css/styles.scss:./css/styles.css"
   },
   "keywords": [
     "\"web",
@@ -24,15 +23,15 @@
   "author": "Jordan0105",
   "license": "MIT",
   "devDependencies": {
+    "@chiogen/rollup-plugin-terser": "^7.1.3",
     "eslint": "^8.32.0",
-    "rollup": "^3.10.1",
+    "rollup": "^3.12.0",
     "rollup-plugin-node-resolve": "^5.2.0",
     "sass": "^1.57.1"
   },
   "dependencies": {
     "animate.css": "^4.1.1",
     "howler": "^2.2.3",
-    "http-server": "^14.1.1",
-    "rollup-plugin-watch": "^1.0.2"
+    "http-server": "^14.1.1"
   }
 }

@@ -1,13 +1,10 @@
-import { close_Home_Screen } from "./start screen.js"
-import { load_Gameplay_Screen_Event } from "./gameplay screen.js"
-import { play_music, stop_music, play_Sound_Sprite } from "./music.js";
-
+import { close_Home_Screen, load_Gameplay_Screen_Event } from "./agreggator.js"
+import { play_music, stop_music, play_Sound_Sprite } from "./agreggator.js";
 
 let opacityAuraSetinterval = 0, opacity = 0;
 let characterImgSrc = "", firstTime = true;
 
 const load_Choose_Character_Screen_Event = (event) => {
-
 
     const allowedKeys = /^(Space|Enter|Backspace)$/;
 
@@ -30,7 +27,6 @@ const show_Aura_Event = () => {
 
     let parent = document.getElementById("characterContainer");
 
-
     let clickedElement = event.target;
 
     let i = Array.from(parent.children).indexOf(clickedElement);
@@ -41,7 +37,6 @@ const show_Aura_Event = () => {
     aura.style.opacity = opacity;
 
     opacityAuraSetinterval = setInterval(() => {
-
 
         aura.style.opacity = opacity;
 
@@ -105,7 +100,7 @@ const disappear_Aura_Event = () => {
 
 const clicked_Icon_Event = (i) => {
 
-    play_Sound_Sprite("../../assets/Audio/SFX Audio/Click SFX.mp3")
+    play_Sound_Sprite("../../assets/Audio/SFX Audio/Click SFX.mp3");
     const selectedImageIcon = document.getElementById("selectedImageIcon");
     selectedImageIcon.style.display = "block";
 
@@ -221,4 +216,5 @@ const close_Choose_Character_Screen = () => {
     }, 800);
 }
 
-export { load_Choose_Character_Screen_Event, show_Aura_Event, disappear_Aura_Event, clicked_Icon_Event, load_Choose_Character_Screen, close_Choose_Character_Screen, characterImgSrc };
+export { load_Choose_Character_Screen_Event, show_Aura_Event, disappear_Aura_Event }
+export { clicked_Icon_Event, load_Choose_Character_Screen, close_Choose_Character_Screen, characterImgSrc };

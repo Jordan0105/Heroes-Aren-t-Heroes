@@ -1,4 +1,4 @@
-import { gameplay_variables } from "./gameplay screen.js"
+import { gameplay_variables } from "./agreggator.js"
 let startMoving = 0;
 
 function getSpeed(gameplay_variables, alienSpeed) {

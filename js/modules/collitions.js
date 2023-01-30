@@ -1,8 +1,7 @@
-import { cloud_variables } from "./clouds.js"
-import { play_Sound_Sprite } from "./music.js";
-import { close_Gameplay_Screen } from "./gameplay screen.js"
-import { load_Show_Score_Screen } from "./game over screen.js";
-import { stop_Moving_Scenarios } from "./scenario.js";
+
+import { play_Sound_Sprite, cloud_variables } from "./agreggator.js";
+import { close_Gameplay_Screen, load_Show_Score_Screen, stop_Moving_Scenarios } from "./agreggator.js"
+
 
 let checkPosition = 0;
 
@@ -10,34 +9,30 @@ function watchMyElement() {
 
     let colliderCloudX, colliderCloudY;
 
-    const alienHitBox = document.getElementById("alienHitBox");
-    const characterHitBox = document.getElementById("characterHitBox");
-    const cloudHitBox = document.getElementById("cloudHitBox");
-    const characterDiv = document.getElementById("characterDiv");
-    const cloudsDiv = document.getElementById("cloudsDiv");
-
-
-    const hitBoxAlien = window.getComputedStyle(alienHitBox);
-    const hitBoxCharacter = window.getComputedStyle(characterHitBox);
+    const alienHitBox = window.getComputedStyle(document.getElementById("alienHitBox"));
+    const characterHitBox = window.getComputedStyle(document.getElementById("characterHitBox"));
+    const characterDiv = window.getComputedStyle(document.getElementById("characterDiv"));
+    const alienDiv = window.getComputedStyle(document.getElementById("alienDiv"))
 
     //TODO: Change getComputedStyle(foo) to const foo = getComputedStyle(foo)
-    const currentHitPosition = parseFloat(hitBoxCharacter.left) + parseFloat(window.getComputedStyle(characterDiv).left);
-    const currentHitPositionAlien = parseFloat(hitBoxAlien.left) + parseFloat(window.getComputedStyle(alienDiv).left);
+    const currentHitPosition = parseFloat(characterHitBox.left) + parseFloat(characterDiv.left);
+    const currentHitPositionAlien = parseFloat(alienHitBox.left) + parseFloat(alienDiv.left);
 
     if (cloud_variables.existCloud) {
-        const hitBoxCloud = window.getComputedStyle(cloudHitBox);
-        const cloudDiv = window.getComputedStyle(cloudsDiv);
-        const currentHitPositionCloud = parseFloat(hitBoxCloud.left) + parseFloat(window.getComputedStyle(cloudsDiv).left);
-        colliderCloudX = (currentHitPosition + parseFloat(hitBoxCharacter.width)) >= currentHitPositionCloud && currentHitPosition <= (currentHitPositionCloud + parseFloat(hitBoxCloud.width));
-        colliderCloudY = !((parseFloat(window.getComputedStyle(characterDiv).top)) >= (parseFloat(hitBoxCloud.height) + (parseFloat(cloudDiv.top) + parseFloat(hitBoxCloud.top))));
+        const cloudDiv = window.getComputedStyle(document.getElementById("cloudsDiv"));
+
+        const cloudHitBox = window.getComputedStyle(document.getElementById("cloudHitBox"));
+        const currentHitPositionCloud = parseFloat(cloudHitBox.left) + parseFloat(cloudDiv.left);
+        colliderCloudX = (currentHitPosition + parseFloat(characterHitBox.width)) >= currentHitPositionCloud && currentHitPosition <= (currentHitPositionCloud + parseFloat(cloudHitBox.width));
+        colliderCloudY = !((parseFloat(characterDiv.top)) >= (parseFloat(cloudHitBox.height) + (parseFloat(cloudDiv.top) + parseFloat(cloudHitBox.top))));
 
     }
     //314.509px
 
 
-    let didCollideAlien = (currentHitPosition + parseFloat(hitBoxCharacter.width)) >= currentHitPositionAlien && currentHitPosition <= (currentHitPositionAlien + parseFloat(hitBoxAlien.width));
+    let didCollideAlien = (currentHitPosition + parseFloat(characterHitBox.width)) >= currentHitPositionAlien && currentHitPosition <= (currentHitPositionAlien + parseFloat(alienHitBox.width));
 
-    if (didCollideAlien && parseFloat(window.getComputedStyle(characterDiv).top) >= 325) {
+    if (didCollideAlien && parseFloat(characterDiv.top) >= 325) {
 
         play_Sound_Sprite("../../assets/Audio/SFX Audio/Smash v2 SFX.mp3");
 
@@ -62,5 +57,5 @@ const collitionFunction = () => {
     checkPosition = setInterval(watchMyElement, 1);
 }
 
-export { watchMyElement, collitionFunction, checkPosition }
+export { collitionFunction, checkPosition }
 

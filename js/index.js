@@ -1,4 +1,4 @@
-import { clickAnywhere } from "./modules/click anywhere.js";
+import { clickAnywhere } from "./modules/agreggator.js";
 //Global Variales
 
 let timerStartContinue = {

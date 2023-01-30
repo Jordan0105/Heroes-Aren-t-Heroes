@@ -1,4 +1,4 @@
-import { Howler } from "howler";
+import Howler from "howler"
 
 const timePlaying = 30000;
 // let click = 0;

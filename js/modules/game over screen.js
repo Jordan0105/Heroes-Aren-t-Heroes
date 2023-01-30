@@ -1,7 +1,6 @@
-import { load_Home_Screen } from "./start screen.js";
-import { load_Gameplay_Screen, gameplay_variables } from "./gameplay screen.js"
-import { load_Choose_Character_Screen } from "./choose character screen.js";
-import { play_music, stop_music, play_Sound_Sprite } from "./music.js";
+import { load_Gameplay_Screen, gameplay_variables } from "./agreggator.js"
+import { load_Choose_Character_Screen, load_Home_Screen } from "./agreggator.js"
+import { play_music, stop_music, play_Sound_Sprite } from "./agreggator.js"
 
 const load_Show_Score_Screen = () => {
 
@@ -20,7 +19,6 @@ const load_Show_Score_Screen = () => {
     const gameOverScreen = document.getElementById("gameOverScreen");
 
     gameOverScreen.style.display = "block";
-    // gameOverScreen.style.cursor = `url("${require("../../assets/Icons/Gloves_Icon.png")}"), auto`;
     gameOverScreen.style.cursor = `url("./../assets/Icons/Gloves_Icon.png"), auto`;
 
     for (let i = 0; i < document.getElementsByClassName("gameOverTextInfo").length; i++) {
@@ -38,18 +36,18 @@ const load_Show_Score_Screen = () => {
 
     const infoGameOver = document.getElementById("infoGameOver");
 
-    if (sessionStorage.getItem("highScore") === null) {
+    if (localStorage.getItem("highScore") === null) {
         highScore = gameplay_variables.score;
         infoGameOver.innerHTML = `Score: ${gameplay_variables.score}<br> High Score: ${highScore}`;
-        sessionStorage.setItem("highScore", highScore);
+        localStorage.setItem("highScore", highScore);
     }
     else {
 
-        highScore = sessionStorage.getItem("highScore");
+        highScore = localStorage.getItem("highScore");
 
         if (gameplay_variables.score > highScore) {
             highScore = gameplay_variables.score;
-            sessionStorage.setItem("highScore", highScore);
+            localStorage.setItem("highScore", highScore);
             infoGameOver.innerHTML = `Score: ${gameplay_variables.score}<br> High Score: ${highScore}`;
         }
         else {

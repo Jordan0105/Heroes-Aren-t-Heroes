@@ -1,9 +1,8 @@
-import { collitionFunction, checkPosition } from "./collitions.js"
-import { close_Choose_Character_Screen, characterImgSrc } from "./choose character screen.js";
-import { alien_Start_Moving_Function, startMoving } from "./alien.js"
-import { create_Cloud_Function, cloud_variables } from "./clouds.js"
-import { startMovingScenarios } from "./scenario.js";
-import { stop_music, play_music, play_Sound_Sprite } from "./music.js";
+import { collitionFunction, checkPosition, startMovingScenarios } from "./agreggator.js"
+import { close_Choose_Character_Screen, characterImgSrc } from "./agreggator.js"
+import { alien_Start_Moving_Function, startMoving } from "./agreggator.js"
+import { create_Cloud_Function, cloud_variables } from "./agreggator.js"
+import { stop_music, play_music, play_Sound_Sprite } from "./agreggator.js"
 
 let gameplay_variables = {
     score: 0,
@@ -136,10 +135,6 @@ const load_Gameplay_Screen_Event = () => {
 
     ];
 
-
-
-
-
     //* Delete the previous screen
 
     close_Choose_Character_Screen();
@@ -158,9 +153,11 @@ const load_Gameplay_Screen_Event = () => {
 const close_Gameplay_Screen = () => {
 
     stop_music();
+
     // document.getElementById("main").classList.add("")
 
     document.getElementById("main").style.display = "none";
+    document.getElementById("characterImg").style.transform = "scaleX(1)";
 
     if (cloud_variables.existCloud === true)
         document.getElementById("cloudsDiv").remove();

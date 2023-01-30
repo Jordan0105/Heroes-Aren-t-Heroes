@@ -1,7 +1,7 @@
-import { load_Home_Screen } from "./start screen.js";
-import { timerStartContinue } from "../index.js";
+import { load_Home_Screen, timerStartContinue } from "./agreggator.js";
 
 const clickAnywhere = () => {
+
     pulseStartText(document.getElementById("clickAnywhereText"), 2000);
     window.addEventListener("click", load_Home_Screen);
 
@@ -14,7 +14,6 @@ const pulseStartText = (text, waitingTime) => {
         setTimeout(() => {
             text.className = "pulseTextOpacity";
             timerStartContinue.timerStartContinue = setInterval(() => {
-
                 if (text.style.opacity == "0.4")
                     text.style.opacity = "1";
 

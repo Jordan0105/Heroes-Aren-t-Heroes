@@ -1,11 +1,11 @@
-import { load_Choose_Character_Screen_Event } from "./choose character screen.js";
-import { pulseStartText, close_Pulse_Start_Text } from "./click anywhere.js";
-import { play_music, stop_music, play_Sound_Sprite } from "./music.js";
+import { load_Choose_Character_Screen_Event } from "./agreggator.js";
+import { pulseStartText, close_Pulse_Start_Text } from "./agreggator.js";
+import { play_music, stop_music, play_Sound_Sprite } from "./agreggator.js";
+
 const startScreen = document.getElementById("startScreen");
 
 
 const load_Home_Screen = () => {
-
 
     play_Sound_Sprite("../../assets/Audio/SFX Audio/Click v3 SFX.wav");
     window.removeEventListener("click", load_Home_Screen);
