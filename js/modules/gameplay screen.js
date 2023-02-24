@@ -1,4 +1,4 @@
-import { collitionFunction, checkPosition, startMovingScenarios } from "./agreggator.js"
+import { collisionFunction, checkPosition, startMovingScenarios } from "./agreggator.js"
 import { close_Choose_Character_Screen, characterImgSrc } from "./agreggator.js"
 import { alien_Start_Moving_Function, startMoving } from "./agreggator.js"
 import { create_Cloud_Function, cloud_variables } from "./agreggator.js"
@@ -16,36 +16,52 @@ let scoreTimer, createCloudsInterval, leftPosition = 0;
 
 const main = getComputedStyle(document.getElementById("main"));
 
+//* Every time we hit the character will jump
+
 function jumpAnimation(characterDiv) {
 
+    //* If the character reached the maximum height jumping 
 
     if (gameplay_variables.positionJump <= 120) {
-
         clearInterval(gameplay_variables.timerJump);
         gameplay_variables.timerJump = setInterval(() => jumpDownAnimation(characterDiv), gameplay_variables.jumpSpeed);
-    } else {
+    }
 
+    //* If not
+    else {
         gameplay_variables.positionJump -= 12;
         characterDiv.style.top = gameplay_variables.positionJump + "px";
     }
 }
 
+//* When he is falling down
+
 function jumpDownAnimation(characterDiv) {
+
+    //* When he hits the ground falling
 
     if (gameplay_variables.positionJump >= 400) {
         clearInterval(gameplay_variables.timerJump);
         gameplay_variables.timerJump = null;
-    } else {
+    }
+
+    //* When he's still in the air (falling down)
+
+    else {
         gameplay_variables.positionJump += 11;
         characterDiv.style.top = gameplay_variables.positionJump + "px";
     }
 }
+
+//* When we pressed arrow keys to move the character
+
 const moveFunction = (e) => {
     const hitBoxCharacterStyle = document.getElementById("characterHitBox");
     const characterDiv = document.getElementById("characterDiv");
 
-    if (e.code == "Space") {
+    //* If we hit spacebar to jump
 
+    if (e.code === "Space") {
 
         if (gameplay_variables.timerJump === null) {
             play_Sound_Sprite("../../assets/Audio/SFX Audio/Jump SFX.mp3");
@@ -55,13 +71,18 @@ const moveFunction = (e) => {
 
     }
 
+    //* If we hit the arrow right to move to the right
 
-    if (e.code == "ArrowRight") {
+    if (e.code === "ArrowRight") {
 
         let currentLeftPosition = parseInt(getComputedStyle(characterDiv).left);
         document.getElementById("characterImg").style.transform = "scaleX(1)";
 
+        //* Initial position of the character
+
         hitBoxCharacterStyle.style.left = "35px";
+
+        //* We can move only when we are within the limit
 
         if (currentLeftPosition <= parseInt(main.width) - 230) {
 
@@ -73,18 +94,27 @@ const moveFunction = (e) => {
 
     }
 
-    if (e.code == "ArrowLeft") {
+    //* If we hit the arrow left to move to the left
+
+    if (e.code === "ArrowLeft") {
+
         let currentRigthPosition = parseInt(window.getComputedStyle(characterDiv).left);
         document.getElementById("characterImg").style.transform = "scaleX(-1)";
 
+        //* Initial position of the character when we pressed left arrow at the start
+
         hitBoxCharacterStyle.style.left = "50px";
-        if (currentRigthPosition == 50) {
+
+        //* When we are at the left limit but we pressed left arrow
+
+        if (currentRigthPosition === 50) {
 
             leftPosition = 0;
             currentRigthPosition = leftPosition + "px";
             characterDiv.style.left = currentRigthPosition;
 
         }
+        //* If we are not then we can move to left normally
 
         else if (currentRigthPosition != 0) {
 
@@ -114,7 +144,7 @@ const load_Gameplay_Screen = () => {
 
     alien_Start_Moving_Function();
     startMovingScenarios();
-    collitionFunction();
+    collisionFunction();
     createCloudsInterval = setInterval(create_Cloud_Function, 1000); //1000
 
     window.addEventListener("keydown", moveFunction);
@@ -140,8 +170,10 @@ const load_Gameplay_Screen_Event = () => {
     close_Choose_Character_Screen();
 
     play_music(play_List_Gameplay);
+
     //* Load the Gameplay Screen
 
+    //* Timeout to wait while finishing playing animations
 
     setTimeout(() => {
         load_Gameplay_Screen();
@@ -150,38 +182,36 @@ const load_Gameplay_Screen_Event = () => {
     }, 1000);
 
 }
+
+//* When we crashed
+
 const close_Gameplay_Screen = () => {
 
     stop_music();
 
-    // document.getElementById("main").classList.add("")
-
     document.getElementById("main").style.display = "none";
     document.getElementById("characterImg").style.transform = "scaleX(1)";
+
+    //* If an cloud does exist we will remove it
 
     if (cloud_variables.existCloud === true)
         document.getElementById("cloudsDiv").remove();
 
-
-
     cloud_variables.existCloud = false;
-
     cloud_variables.cloudPosition = 1300;
     leftPosition = 0;
+
     document.getElementById("characterDiv").style.left = "50px";
 
-
-
-    // alienDiv.style.display = "none";
-    // characterDiv.style.display = "none";
-
+    //* We clean all the used intervals
 
     clearInterval(checkPosition);
     clearInterval(startMoving);
     clearInterval(scoreTimer);
     clearInterval(createCloudsInterval);
-
     clearInterval(cloud_variables.cloudInterval);
+
+    //* Remove the listener
 
     window.removeEventListener("keydown", moveFunction);
 

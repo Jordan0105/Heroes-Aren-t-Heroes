@@ -1,6 +1,9 @@
 import { gameplay_variables } from "./agreggator.js"
 let startMoving = 0;
 
+//* This is the speed of the alien and the jump of the character,
+//* as long as you survive, the speed will increase
+
 function getSpeed(gameplay_variables, alienSpeed) {
 
     switch (gameplay_variables.score) {
@@ -38,6 +41,9 @@ function getSpeed(gameplay_variables, alienSpeed) {
     return alienSpeed;
 }
 
+//* When you chose the character and hit again to play
+//* The alien will start to move
+
 const alien_Start_Moving_Function = () => {
 
     const alienDiv = document.getElementById("alienDiv");
@@ -45,17 +51,26 @@ const alien_Start_Moving_Function = () => {
     let alienSpeed = 1;
     let position = 1320;
 
+    //* The alien will start moving
+
     startMoving = setInterval(alienMovementRight, 1);
+
+
+    //* When the alien heads to the right
 
     function alienMovementRight() {
 
         alienImg.style.transform = "scaleX(1)";
         alienSpeed = getSpeed(gameplay_variables, alienSpeed);
 
+        //* If the alien reaches the right limit 
         if (position <= 0) {
             clearInterval(startMoving);
-            startMoving = setInterval(alienMovementLeft, 1); //TODO: Change 1 to 100 and try it
+            startMoving = setInterval(alienMovementLeft, 1);
         }
+
+        //* If not
+
         else {
             position -= alienSpeed;
             alienDiv.style.left = position + "px";
@@ -66,10 +81,16 @@ const alien_Start_Moving_Function = () => {
 
         alienSpeed = getSpeed(gameplay_variables, alienSpeed);
         alienImg.style.transform = "scaleX(-1)";
+
+        //* When the alien reaches the left limit
+
         if (position >= 1200) {
             clearInterval(startMoving);
             startMoving = setInterval(alienMovementRight, 1);
         }
+
+        //* If not
+
         else {
             position += alienSpeed;
             alienDiv.style.left = position + "px";
