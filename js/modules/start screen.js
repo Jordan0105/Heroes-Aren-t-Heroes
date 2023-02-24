@@ -4,10 +4,12 @@ import { play_music, stop_music, play_Sound_Sprite } from "./agreggator.js";
 
 const startScreen = document.getElementById("startScreen");
 
-
 const load_Home_Screen = () => {
 
+    //* Play the music
+
     play_Sound_Sprite("../../assets/Audio/SFX Audio/Click v3 SFX.wav");
+
     window.removeEventListener("click", load_Home_Screen);
 
     const play_List_Home = [
@@ -21,6 +23,8 @@ const load_Home_Screen = () => {
 
     play_music(play_List_Home);
 
+    //* Close the interval of the "Click anywhere to continue"
+
     close_Pulse_Start_Text();
 
     document.getElementById("clickAnywhereDiv").style.display = "none";
@@ -30,8 +34,15 @@ const load_Home_Screen = () => {
     startScreen.style.display = "flex";
     textStart.style.visibility = "visible";
 
+    //* Animation to the text start (entrance)
+
     textStart.classList.add("animate__animated", "animate__bounceIn", "animate__delay-1s");
+
+    //* Interval for the text: "Pulse start to continue"
+
     pulseStartText(textStart, 1500);
+
+    //* We prevnt to clcik fast just while finishing playing animations.
 
     setTimeout(() => {
         window.addEventListener("keydown", load_Choose_Character_Screen_Event);
@@ -48,7 +59,11 @@ const close_Home_Screen = () => {
     textStart.className = "";
     textStart.style.visibility = "hidden";
 
+    //* Start Screen exit animation
+
     startScreen.classList.add("animate__animated", "animate__zoomOutDown");
+
+    //*  Timeout  while finishing playing animations
 
     setTimeout(() => {
         startScreen.style.display = "none";
