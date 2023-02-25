@@ -15,7 +15,7 @@ Use arrow keys to move the character:
 
 **Right Arrow Key:** *Move the character to the right.*
 
-![Key Right](https://raw.githubusercontent.com/Jordan0105/Heroes-Aren-t-Heroes/main/Screenshots/Rigth%20Arrow%20Key.png)
+![Key Right](https://raw.githubusercontent.com/Jordan0105/Heroes-Aren-t-Heroes/main/Screenshots/Right%20Arrow%20Key.png)
 
 **Spacebar key:** *To jump*
 
